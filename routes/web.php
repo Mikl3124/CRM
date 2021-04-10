@@ -20,16 +20,13 @@ use App\Http\Controllers\PaiementController;
 |
 */
 
-Route::get('/', function () {
-  return view('welcome');
-});
-
 //Customers
 
 Auth::routes();
 
+Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::post('access', [HomeController::class, 'access'])->name('access');
-Route::get('/dashboard', [App\Http\Controllers\HomeController::class, 'dashboard'])->name('dashboard');
+Route::get('/dashboard', [HomeController::class, 'dashboard'])->name('dashboard');
 
 //Customers
 Route::get('/customer/create', [CustomerController::class, 'create'])->middleware(['auth'])->name('customer.create');
