@@ -374,27 +374,21 @@
                   </table>
                 </td>
               </tr>
-              <table cellpadding="0"
-              cellspacing="0"
-              class="sc-gPEVay eQYmiW"
-              style="vertical-align: -webkit-baseline-middle; font-size: large; font-family: Arial; min-width: 450px;">
-              <tbody>
-                <tr style="text-align: center;">
-                  <td>
-                    <h3 color="#000000" class="sc-fBuWsC eeihxG" style="margin: 0px; font-size: 20px; color: rgb(0, 0, 0);">
-                      <span>Mickael</span><span>&nbsp;</span><span>Delpech</span>
-                    </h3>
-                    <p color="#000000" font-size="large" class="sc-fMiknA bxZCMx" style="margin: 0px; color: rgb(0, 0, 0); font-size: 16px; line-height: 24px;"><span>Nyleo Conception</span>
-                    </p>
-                  </td>
-                </tr>
-              </tbody>
-              </table>
             <!-- END MAIN CONTENT AREA -->
             </table>
             <!-- END CENTERED WHITE CONTAINER -->
 
-            <!-- START FOOTER -->
+             <!-- START FOOTER -->
+             <div class="footer">
+              <table role="presentation" border="0" cellpadding="0" cellspacing="0">
+                <tr>
+                  <td class="content-block powered-by">
+                    Nyleo Conception, plans pour la construction
+                  </td>
+                </tr>
+              </table>
+            </div>
+            <!-- END FOOTER -->
 
           </div>
         </td>

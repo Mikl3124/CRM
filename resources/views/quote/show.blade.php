@@ -11,7 +11,10 @@
             <a class="btn btn-primary" href="{{ route('dashboard') }}">Retour au Dashboard</a>
           @endauth
         <h4 class="text-center mt-2">Votre devis</h4>
-        <iframe src="{{ Storage::disk('s3')->url($quote->url) }}" width="100%" height="600px"></iframe>
+        <div class="embed-responsive embed-responsive-1by1">
+          <iframe class="embed-responsive-item" src="{{ Storage::disk('s3')->url($quote->url) }}"></iframe>
+        </div>
+
         <div class="d-flex justify-content-between">
             <a target="_blank" href="https://nyleo.fr/cgv/">Consulter nos CGV</a>
         </div>
