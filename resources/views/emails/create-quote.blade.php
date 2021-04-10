@@ -374,14 +374,27 @@
                   </table>
                 </td>
               </tr>
-
+              <table cellpadding="0"
+              cellspacing="0"
+              class="sc-gPEVay eQYmiW"
+              style="vertical-align: -webkit-baseline-middle; font-size: large; font-family: Arial; min-width: 450px;">
+              <tbody>
+                <tr style="text-align: center;">
+                  <td>
+                    <h3 color="#000000" class="sc-fBuWsC eeihxG" style="margin: 0px; font-size: 20px; color: rgb(0, 0, 0);">
+                      <span>Mickael</span><span>&nbsp;</span><span>Delpech</span>
+                    </h3>
+                    <p color="#000000" font-size="large" class="sc-fMiknA bxZCMx" style="margin: 0px; color: rgb(0, 0, 0); font-size: 16px; line-height: 24px;"><span>Nyleo Conception</span>
+                    </p>
+                  </td>
+                </tr>
+              </tbody>
+              </table>
             <!-- END MAIN CONTENT AREA -->
             </table>
             <!-- END CENTERED WHITE CONTAINER -->
 
             <!-- START FOOTER -->
-<table cellpadding="0" cellspacing="0" class="sc-gPEVay eQYmiW" style="vertical-align: -webkit-baseline-middle; font-size: large; font-family: Arial; min-width: 450px;"><tbody><tr style="text-align: center;"><td><h3 color="#000000" class="sc-fBuWsC eeihxG" style="margin: 0px; font-size: 20px; color: rgb(0, 0, 0);"><span>Mickael</span><span>&nbsp;</span><span>Delpech</span></h3><p color="#000000" font-size="large" class="sc-fMiknA bxZCMx" style="margin: 0px; color: rgb(0, 0, 0); font-size: 16px; line-height: 24px;"><span>Nyleo Conception</span></p></td></tr><tr><td><table cellpadding="0" cellspacing="0" class="sc-gPEVay eQYmiW" style="vertical-align: -webkit-baseline-middle; font-size: large; font-family: Arial; width: 100%;"><tbody><tr><td height="30"></td></tr><tr><td color="#ff6600" direction="horizontal" height="1" class="sc-jhAzac hmXDXQ" style="width: 100%; border-bottom: 1px solid rgb(255, 102, 0); border-left: none; display: block;"></td></tr><tr><td height="30"></td></tr></tbody></table><table cellpadding="0" cellspacing="0" class="sc-gPEVay eQYmiW" style="vertical-align: -webkit-baseline-middle; font-size: large; font-family: Arial; width: 100%;"><tbody><tr style="vertical-align: middle;"><td><table cellpadding="0" cellspacing="0" class="sc-gPEVay eQYmiW" style="vertical-align: -webkit-baseline-middle; font-size: large; font-family: Arial;"><tbody><tr height="25" style="vertical-align: middle;"><td width="30" style="vertical-align: middle;"><table cellpadding="0" cellspacing="0" class="sc-gPEVay eQYmiW" style="vertical-align: -webkit-baseline-middle; font-size: large; font-family: Arial;"><tbody><tr><td style="vertical-align: bottom;"></td></tr></tbody></table></td><td style="padding: 0px; color: rgb(0, 0, 0);"><a href="tel:06 44 66 64 64" color="#000000" class="sc-gipzik iyhjGb" style="text-decoration: none; color: rgb(0, 0, 0); font-size: 12px;"><span>06 44 66 64 64</span></a></td></tr><tr height="25" style="vertical-align: middle;"><td width="30" style="vertical-align: middle;"><table cellpadding="0" cellspacing="0" class="sc-gPEVay eQYmiW" style="vertical-align: -webkit-baseline-middle; font-size: large; font-family: Arial;"><tbody><tr><td style="vertical-align: bottom;"></td></tr></tbody></table></td><td style="padding: 0px;"><a href="mailto:contact@nyleo.fr" color="#000000" class="sc-gipzik iyhjGb" style="text-decoration: none; color: rgb(0, 0, 0); font-size: 12px;"><span>contact@nyleo.fr</span></a></td></tr><tr height="25" style="vertical-align: middle;"><td width="30" style="vertical-align: middle;"><table cellpadding="0" cellspacing="0" class="sc-gPEVay eQYmiW" style="vertical-align: -webkit-baseline-middle; font-size: large; font-family: Arial;"><tbody><tr><td style="vertical-align: bottom;"></td></tr></tbody></table></td><td style="padding: 0px;"><a href="//www.nyleo.fr" color="#000000" class="sc-gipzik iyhjGb" style="text-decoration: none; color: rgb(0, 0, 0); font-size: 12px;"><span>www.nyleo.fr</span></a></td></tr></tbody></table></td><td style="text-align: right;"><table cellpadding="0" cellspacing="0" class="sc-gPEVay eQYmiW" style="vertical-align: -webkit-baseline-middle; font-size: large; font-family: Arial; width: 100%;"><tbody><tr><td><img src="https://nyleo.fr/wp-content/uploads/2015/02/Logo-nyleoxhdpi.png" role="presentation" width="130" class="sc-cHGsZl bHiaRe" style="max-width: 130px; display: inline-block;"></td></tr></tbody></table></td></tr></tbody></table><table cellpadding="0" cellspacing="0" class="sc-gPEVay eQYmiW" style="vertical-align: -webkit-baseline-middle; font-size: large; font-family: Arial; width: 100%;"><tbody><tr><td height="30"></td></tr><tr><td color="#ff6600" direction="horizontal" height="1" class="sc-jhAzac hmXDXQ" style="width: 100%; border-bottom: 1px solid rgb(255, 102, 0); border-left: none; display: block;"></td></tr><tr><td height="30"></td></tr></tbody></table></td></tr></tbody></table>
-            <!-- END FOOTER -->
 
           </div>
         </td>
