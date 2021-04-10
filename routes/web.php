@@ -24,7 +24,6 @@ use App\Http\Controllers\PaiementController;
 
 Auth::routes();
 
-Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::post('access', [HomeController::class, 'access'])->name('access');
 Route::get('/dashboard', [HomeController::class, 'dashboard'])->name('dashboard');
 
