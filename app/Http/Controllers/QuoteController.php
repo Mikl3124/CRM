@@ -26,6 +26,10 @@ class QuoteController extends Controller
   public function show($token)
   {
     $quote = Quote::where('token', $token)->first();
+    if (!Auth::check()) {
+      views($quote)->record();
+    }
+
     $options = Option::where('quote_id', $quote->id)->get();
     return view('quote.show', compact('quote', 'options'));
   }

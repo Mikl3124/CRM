@@ -59,7 +59,7 @@ class ProjectController extends Controller
   {
 
     $project = Project::find($id);
-    $quotes = Quote::where('project_id', $project->id)->get();
+    $quotes = Quote::where('project_id', $project->id)->orderBy('created_at', 'DESC')->get();
     return view('project.show', compact('project', 'quotes'));
   }
 }

@@ -1,20 +1,17 @@
-  @extends('layouts.app-without-nav')
-
-
+@extends('layouts.app-without-nav')
 
 @section('content')
 
   <div class="container-fluid row">
     <div class="col-sm-12 col-md-12">
-      <div class="container">
           @auth
             <a class="btn btn-primary" href="{{ route('dashboard') }}">Retour au Dashboard</a>
           @endauth
-        <h4 class="text-center mt-2">Votre devis</h4>
-        <div class="text-center my-3">
+        <h3 class="text-center mt-2 mb-4">Votre devis</h3>
+        <div class="text-center my-2">
           @if ($quote->accepted == 0)
-            <button type="button" class="btn btn-primary mb-2" data-toggle="modal" data-target="#paymentModalCenter">
-              Accepter le devis ({{ $quote->amount}}€)
+            <button type="button" class="btn btn-success mb-2" data-toggle="modal" data-target="#paymentModalCenter">
+              Accepter le devis et régler l'acompte
             </button>
           @else
             <button type="button" class="btn btn-primary disabled mb-2">
@@ -25,9 +22,8 @@
       <div class='embed-responsive' style='padding-bottom:100%'>
         <object data="{{ Storage::disk('s3')->url($quote->url) }}" type='application/pdf' width='100%' height='100%'></object>
       </div>
-        <div class="d-flex justify-content-between">
-            <a target="_blank" href="https://nyleo.fr/cgv/">Consulter nos CGV</a>
-        </div>
+      <div class="d-flex justify-content-between">
+          <a target="_blank" href="https://nyleo.fr/cgv/">Consulter nos CGV</a>
       </div>
     </div>
   </div>

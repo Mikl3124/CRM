@@ -9,7 +9,7 @@
   <div class="text-center">
     @isset($quotes)
         @foreach ($quotes as $quote)
-            <h5><a href="{{ route('quote.show', $quote->token) }}">Créé le {{ \Carbon\Carbon::parse($quote->created_at)->locale('fr_FR')->translatedFormat('d F Y à H\hi') }}</h5></ul>
+            <h5><a href="{{ route('quote.show', $quote->token) }}">Créé le {{ \Carbon\Carbon::parse($quote->created_at)->locale('fr_FR')->translatedFormat('d F Y à H\hi') }}</a>  <i class="fas fa-eye"></i> {{ views($quote)->count() }}</h5></ul>
         @endforeach
     @endisset
   </div>
