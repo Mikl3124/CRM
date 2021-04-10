@@ -360,7 +360,7 @@
                                 <table role="presentation" border="0" cellpadding="0" cellspacing="0">
                                   <tbody>
                                     <tr>
-                                      <td> <a href="https://client.nyleo.fr/quote/show/{{ $quote->token }}" target="_blank">Voir le devis</a> </td>
+                                      <td> <a href="https://crm.nyleo.fr/quote/show/{{ $quote->token }}" target="_blank">Voir le devis</a> </td>
                                     </tr>
                                   </tbody>
                                 </table>
