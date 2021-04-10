@@ -11,23 +11,22 @@
             <a class="btn btn-primary" href="{{ route('dashboard') }}">Retour au Dashboard</a>
           @endauth
         <h4 class="text-center mt-2">Votre devis</h4>
-        <div class="embed-responsive embed-responsive-1by1">
-          <iframe class="embed-responsive-item" src="{{ Storage::disk('s3')->url($quote->url) }}"></iframe>
-        </div>
-
+        <div class="text-center my-3">
+          @if ($quote->accepted == 0)
+            <button type="button" class="btn btn-primary mb-2" data-toggle="modal" data-target="#paymentModalCenter">
+              Accepter le devis ({{ $quote->amount}}€)
+            </button>
+          @else
+            <button type="button" class="btn btn-primary disabled mb-2">
+              Vous avez déjà accepté le devis
+            </button>
+          @endif
+      </div>
+      <div class='embed-responsive' style='padding-bottom:100%'>
+        <object data="{{ Storage::disk('s3')->url($quote->url) }}" type='application/pdf' width='100%' height='100%'></object>
+      </div>
         <div class="d-flex justify-content-between">
             <a target="_blank" href="https://nyleo.fr/cgv/">Consulter nos CGV</a>
-        </div>
-        <div class="text-center mt-5">
-            @if ($quote->accepted == 0)
-              <button type="button" class="btn btn-primary mb-2" data-toggle="modal" data-target="#paymentModalCenter">
-                Accepter le devis ({{ $quote->amount}}€)
-              </button>
-            @else
-              <button type="button" class="btn btn-primary disabled mb-2">
-                Vous avez déjà accepté le devis
-              </button>
-            @endif
         </div>
       </div>
     </div>
