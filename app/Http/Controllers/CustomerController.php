@@ -46,6 +46,7 @@ namespace App\Http\Controllers {
       ]);
 
       if ($validator->fails()) {
+
         return Redirect::back()
           ->withErrors($validator)
           ->withInput();
@@ -60,7 +61,6 @@ namespace App\Http\Controllers {
         $customer->town = $request->town;
 
         $customer->save();
-
         return redirect()->route('dashboard')->with('success', "Le client a bien été ajouté");
       }
     }

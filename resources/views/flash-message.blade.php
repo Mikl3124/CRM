@@ -1,38 +1,30 @@
-@if ($message = Session::get('success'))
-<div class="alert alert-success alert-block">
-	<button type="button" class="close" data-dismiss="alert">×</button>
-        <strong>{{ $message }}</strong>
+@if (session('success'))
+<div class="alert alert-success alert-block text-center">
+  <button type="button" class="close" data-dismiss="alert">×</button>
+        {!! session('success') !!}
 </div>
 @endif
-
-
-@if ($message = Session::get('error'))
-<div class="alert alert-danger alert-block">
-	<button type="button" class="close" data-dismiss="alert">×</button>
-        <strong>{{ $message }}</strong>
+@if (session('error'))
+<div class="alert alert-danger alert-block text-center">
+  <button type="button" class="close" data-dismiss="alert">×</button>
+        {!! session('error') !!}
 </div>
 @endif
-
-
-@if ($message = Session::get('warning'))
-<div class="alert alert-warning alert-block">
-	<button type="button" class="close" data-dismiss="alert">×</button>
-	<strong>{{ $message }}</strong>
+@if (session('warning'))
+<div class="alert alert-warning alert-block text-center">
+  <button type="button" class="close" data-dismiss="alert">×</button>
+  {!! session('warning') !!}
 </div>
 @endif
-
-
-@if ($message = Session::get('info'))
-<div class="alert alert-info alert-block">
-	<button type="button" class="close" data-dismiss="alert">×</button>
-	<strong>{{ $message }}</strong>
+@if (session('info'))
+<div class="alert alert-info alert-block text-center">
+  <button type="button" class="close" data-dismiss="alert">×</button>
+  {!! session('info') !!}
 </div>
 @endif
-
-
 @if ($errors->any())
-<div class="alert alert-danger">
-	<button type="button" class="close" data-dismiss="alert">×</button>
-	Une erreur est survenue
+<div class="alert alert-danger text-center">
+  <button type="button" class="close" data-dismiss="alert">×</button>
+  Une erreur est survenue
 </div>
 @endif
