@@ -51,3 +51,7 @@ Route::get('/quote/show/{token}', [QuoteController::class, 'show'])->name('quote
 //Payment
 Route::post('/secure-paiement', [PaiementController::class, 'create'])->name('paiement');
 Route::get('/payment-success/', [PaiementController::class, 'success'])->name('success-paiement');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
