@@ -20,6 +20,7 @@ class CreateCustomersTable extends Migration
       $table->string('address')->nullable();
       $table->string('zip')->nullable();
       $table->string('town')->nullable();
+      $table->string('stripe_id')->nullable();
     });
   }
 

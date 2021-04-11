@@ -25,7 +25,7 @@ use App\Http\Controllers\PaiementController;
 Auth::routes();
 
 Route::post('access', [HomeController::class, 'access'])->name('access');
-Route::get('/dashboard', [HomeController::class, 'dashboard'])->name('dashboard');
+Route::get('/', [HomeController::class, 'dashboard'])->name('dashboard');
 
 //Customers
 Route::get('/customer/create', [CustomerController::class, 'create'])->middleware(['auth'])->name('customer.create');
@@ -45,7 +45,7 @@ Route::get('/quote/show/{token}', [QuoteController::class, 'show'])->name('quote
 
 //Payment
 Route::post('/secure-paiement', [PaiementController::class, 'create'])->name('paiement');
-Route::get('/payment-success/', [PaiementController::class, 'success'])->name('success-paiement');
+Route::post('/payment-success/', [PaiementController::class, 'success'])->name('success-paiement');
 
 Auth::routes();
 

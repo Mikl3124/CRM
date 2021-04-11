@@ -6,6 +6,7 @@ use App\Models\Quote;
 use App\Models\Project;
 use App\Models\Customer;
 use Illuminate\Http\Request;
+use Laravel\Cashier\Cashier;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
