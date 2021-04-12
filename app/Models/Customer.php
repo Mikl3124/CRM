@@ -3,10 +3,12 @@
 namespace App\Models;
 
 use App\Models\User;
+use Laravel\Cashier\Billable;
 use Illuminate\Database\Eloquent\Model;
 
 class Customer extends Model
 {
+  use Billable;
 
   protected $guarded = [];
   public $timestamps = true;

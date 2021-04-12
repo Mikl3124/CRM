@@ -36,31 +36,39 @@
         <div class="mt-5">
             <h4 class="display-4 text-center"><i class="fab fa-cc-visa"></i> Paiement sécurisé <i class="fab fa-cc-visa"></i></h4>
             <hr class="my-4">
-            <p class="lead text-center">Veuillez saisir vos informations, afin de régler {{ number_format((float)$total/100, 2, '.', '') }}€ à Nyleo Conception </p>
 
-            <form action="#" class="my-4 ">
+            <p class="lead text-center">Veuillez saisir vos informations, afin de régler {{ number_format((float)$total/100, 2, '.', '') }}€ à Nyleo Conception </p>
+            <div id="payment-pending" class="card">
+              <form action="{{ route('success-paiement') }}" method="POST" id="form">
               <div class="row justify-content-md-center">
                 <div id="card-element" class="p-3 border border-secondary rounded mx-5 col-md-6">
                   <!-- Elements will create input elements here -->
                 </div>
               </div>
-
-
-                            <!-- We'll put the error messages in this element -->
-                    <div id="card-errors" class="mb-3" role="alert"></div>
-                    <div class="text-center">
-                      <a href="{{ url()->previous() }}" class="btn btn-secondary mt-3" >Retour</a>
-                        <button id="submit" class="btn btn-success mt-3" data-secret="<?= $intent->client_secret ?>">
-                            Payer
-                        </button>
-                    </div>
-                </form>
+                <!-- We'll put the error messages in this element -->
+              <div id="card-errors" class="mb-3" role="alert"></div>
+              <div class="text-center">
+                <a href="{{ url()->previous() }}" class="btn btn-secondary mt-3" >Retour</a>
+                  <button id="submit" class="btn btn-success mt-3" data-secret="<?= $intent->client_secret ?>">
+                      Payer
+                  </button>
+              </div>
+            </form>
+            <div id="inset_form"></div>
+          </div>
         </div>
     </div>
-</body>
 
+<script src="https://js.stripe.com/v3/"></script>
 
-  <script src="https://js.stripe.com/v3/"></script>
+<script>
+    const stripe = Stripe('stripe-public-key');
+    const elements = stripe.elements();
+    const cardElement = elements.create('card');
+    const cardHolderName = '{{ $customer->firstname }}';
+
+</script>
+
 <script>
   window.onload = function(){
     var stripe = Stripe('{{ env('STRIPE_KEY') }}');;
@@ -100,9 +108,8 @@
     stripe.confirmCardPayment("{{ $clientSecret }}", {
       payment_method: {
         card: card,
-        billing_details: {
-          name: '{{ $customer }}'
-        }
+        billing_details: { name: cardHolderName.value }
+
       }
         }).then(function(result) {
             if (result.error) {
@@ -117,8 +124,12 @@
                     // execution. Set up a webhook or plugin to listen for the
                     // payment_intent.succeeded event that handles any business critical
                     // post-payment actions.
+
                     console.log(result.paymentIntent);
-                    window.location.replace('{{ route ('success-paiement') }}');
+                    $('#inset_form').html('<form action="{{ route ('success-paiement') }}" name="stripe" method="post" style="display:none;"><input type="text" name="api_url" value="coco"/></form>');
+
+                    document.forms['stripe'].submit();
+                    //window.location.replace('{{ route ('success-paiement') }}');
                 }
             }
         });

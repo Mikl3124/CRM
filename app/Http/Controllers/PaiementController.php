@@ -8,6 +8,7 @@ use App\Models\Customer;
 use Stripe\PaymentIntent;
 use Illuminate\Support\Arr;
 use Illuminate\Http\Request;
+use Laravel\Cashier\Cashier;
 use Illuminate\Support\Facades\Redirect;
 
 class PaiementController extends Controller
@@ -32,7 +33,13 @@ class PaiementController extends Controller
       'metadata' => ['integration_check' => 'accept_a_payment'],
     ]);
 
+
     $clientSecret = Arr::get($intent, 'client_secret');
+    if (!isset($customer->stripe_id)) {
+      $stripeCustomer = $customer->createAsStripeCustomer();
+    } else {
+      $stripeCustomer = Cashier::findBillable($customer->stripe_id);
+    }
 
     return view('payment.create', [
       'clientSecret' => $clientSecret,
@@ -40,13 +47,14 @@ class PaiementController extends Controller
       'total' => $total,
       'acount' => $total * 30,
       'amount' =>  $total * 100,
-      'customer' => $customer->firstname . " " . $customer->lastname,
+      'customer' => $customer,
       'quote' => $quote,
     ]);
   }
 
-  public function success()
+  public function success(Request $request)
   {
+    dd($request);
     return view('payment.success')->with('success', "Votre règlement a bien été enregistré");
   }
 }
