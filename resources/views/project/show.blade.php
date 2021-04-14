@@ -12,7 +12,7 @@
   @endisset
 
   @isset($avp)
-  <a class="btn btn-secondary my-4" href="">Voir l'avant projet</a>
+  <a class="btn btn-secondary my-4" href="{{ route('avp.show', $avp->token) }}">Voir l'avant projet</a>
   @else
   <a class="btn btn-success my-4" href="{{ route('avp.create', $project->id) }}">Créer un avp</a>
   @endisset

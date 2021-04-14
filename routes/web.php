@@ -47,6 +47,7 @@ Route::get('/quote/show/{token}', [QuoteController::class, 'show'])->name('quote
 //AVP
 Route::get('/avp/create/{id}', [AvpController::class, 'create'])->middleware(['auth'])->name('avp.create');
 Route::post('/avp/store', [AvpController::class, 'store'])->middleware(['auth'])->name('avp.store');
+Route::get('/avp/show/{token}', [AvpController::class, 'show'])->name('avp.show');
 
 //Payment
 Route::post('/secure-paiement', [PaiementController::class, 'create'])->name('paiement');

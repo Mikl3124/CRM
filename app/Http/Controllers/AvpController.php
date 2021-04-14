@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Avp;
 use App\Models\Quote;
+use App\Models\Option;
 use App\Models\Payment;
 use App\Models\Project;
 use App\Models\Customer;
@@ -16,6 +17,9 @@ class AvpController extends Controller
   {
     $project = Project::find($id);
     $quote = Quote::where('project_id', $project->id)->first();
+    if ($quote === null) {
+      return redirect()->back()->with('error', "Veuillez d'abord saisir un devis !");
+    }
     $paiement = Payment::where('quote_id', $quote->id)->first();
 
     if ($paiement === null) {
@@ -41,5 +45,16 @@ class AvpController extends Controller
     $avp->save();
 
     return redirect()->route('customer.show', $avp->project->customer_id)->with('success', "L'avant projet a bien été ajouté");
+  }
+
+  public function show($token)
+  {
+    $avp = Avp::where('token', $token)->first();
+
+    if (!Auth::check()) {
+      views($avp)->record();
+    }
+
+    return view('avp.show', compact('avp'));
   }
 }
