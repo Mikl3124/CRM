@@ -36,18 +36,17 @@
         <div class="mt-5">
             <h4 class="display-4 text-center"><i class="fab fa-cc-visa"></i> Paiement sécurisé <i class="fab fa-cc-visa"></i></h4>
             <hr class="my-4">
-
             <p class="lead text-center">Veuillez saisir vos informations, afin de régler {{ number_format((float)$total/100, 2, '.', '') }}€ à Nyleo Conception </p>
             <div id="payment-pending" class="card">
               <form action="{{ route('success-paiement') }}" method="POST" id="form">
-              <div class="row justify-content-md-center">
+              <div class="row justify-content-md-center mt-3">
                 <div id="card-element" class="p-3 border border-secondary rounded mx-5 col-md-6">
                   <!-- Elements will create input elements here -->
                 </div>
               </div>
                 <!-- We'll put the error messages in this element -->
               <div id="card-errors" class="mb-3" role="alert"></div>
-              <div class="text-center">
+              <div class="text-center mb-3">
                 <a href="{{ url()->previous() }}" class="btn btn-secondary mt-3" >Retour</a>
                   <button id="submit" class="btn btn-success mt-3" data-secret="<?= $intent->client_secret ?>">
                       Payer
@@ -95,10 +94,10 @@
     card.addEventListener('change', ({error}) => {
     const displayError = document.getElementById('card-errors');
         if (error) {
-            displayError.classList.add('alert', 'alert-danger', 'mt-3');
+            displayError.classList.add('alert', 'alert-danger', 'mt-3', 'mx-5');
             displayError.textContent = error.message;
         } else {
-            displayError.classList.remove('alert', 'alert-danger', 'mt-3');
+            displayError.classList.remove('alert', 'alert-danger', 'mt-3', 'mx-5');
             displayError.textContent = '';
         }
     });
@@ -126,7 +125,7 @@
                     // post-payment actions.
 
                     console.log(result.paymentIntent);
-                    $('#inset_form').html('<form action="{{ route ('success-paiement') }}" name="stripe" method="post" style="display:none;"><input type="text" name="api_url" value="coco"/></form>');
+                    $('#inset_form').html('<form action="{{ route ('success-paiement') }}" name="stripe" method="post" style="display:none;"><input type="text" name="amount" value="{{ $total }}"/><input type="text" name="quote_id" value="{{ $quote->id }}"/><input type="text" name="customer_id" value="{{ $customer->id }}"/></form>');
 
                     document.forms['stripe'].submit();
                     //window.location.replace('{{ route ('success-paiement') }}');

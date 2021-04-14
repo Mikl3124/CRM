@@ -10,7 +10,7 @@
           <form action="{{ route('quote.store')}}" method="post" enctype="multipart/form-data">
             @csrf
             <input type="hidden", name="projectId" value="{{ $project->id }}">
-            <div class="row">  
+            <div class="row">
               <div class="col-md-6 mb-3">
                 <div class="input-group">
                   <div class="input-group-prepend">
@@ -73,7 +73,7 @@
         </div>
     </div>
 
-    
+
   </div>
 
 

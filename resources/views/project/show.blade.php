@@ -4,15 +4,20 @@
 <div class="container">
   <a class="btn btn-primary my-4" href="{{ route('dashboard') }}">Retour au Dashboard</a>
   <h1>Le projet</h1>
-  <a class="btn btn-primary my-4" href="{{ route('quote.create', $project->id) }}">Créer un devis</a>
 
-  <div class="text-center">
-    @isset($quotes)
-        @foreach ($quotes as $quote)
-            <h5><a href="{{ route('quote.show', $quote->token) }}">Créé le {{ \Carbon\Carbon::parse($quote->created_at)->locale('fr_FR')->translatedFormat('d F Y à H\hi') }}</a>  <i class="fas fa-eye"></i> {{ views($quote)->count() }}</h5></ul>
-        @endforeach
-    @endisset
-  </div>
+  @isset($quote)
+  <a class="btn btn-secondary my-4" href="{{ route('quote.show', $quote->token) }}">Voir le devis</a>
+  @else
+  <a class="btn btn-success my-4" href="{{ route('quote.create', $project->id) }}">Créer un devis</a>
+  @endisset
+
+  @isset($avp)
+  <a class="btn btn-secondary my-4" href="">Voir l'avant projet</a>
+  @else
+  <a class="btn btn-success my-4" href="{{ route('avp.create', $project->id) }}">Créer un avp</a>
+  @endisset
+
+
 </div>
 
 

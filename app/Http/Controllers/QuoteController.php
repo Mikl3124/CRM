@@ -100,7 +100,8 @@ class QuoteController extends Controller
 
       Mail::to($customer->email)
         ->send(new CreateQuote($quote, $customer));
-      return redirect()->route('customer.show', $quote->project->customer_id)->with('success', "Le projet a bien été ajouté");
+
+      return redirect()->route('customer.show', $quote->project->customer_id)->with('success', "Le devis a bien été ajouté");
     }
     return redirect()->back()->with('errors', "Vous n'êtes pas autorisé à créer un devis pour ce client");
   }

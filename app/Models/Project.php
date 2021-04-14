@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Avp;
 use App\Models\Option;
 use App\Models\Customer;
 use Illuminate\Database\Eloquent\Model;
@@ -25,5 +26,10 @@ class Project extends Model
   public function quotes()
   {
     return $this->hasMany(Quote::class);
+  }
+
+  public function avps()
+  {
+    return $this->hasMany(Avp::class);
   }
 }

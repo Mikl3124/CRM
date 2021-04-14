@@ -3,6 +3,7 @@
 use App\Models\Pay;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AvpController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\QuoteController;
 use App\Http\Controllers\ProjectController;
@@ -42,6 +43,10 @@ Route::get('/project/show/{id}', [ProjectController::class, 'show'])->middleware
 Route::get('/quote/create/{id}', [QuoteController::class, 'create'])->middleware(['auth'])->name('quote.create');
 Route::post('/quote/store', [QuoteController::class, 'store'])->middleware(['auth'])->name('quote.store');
 Route::get('/quote/show/{token}', [QuoteController::class, 'show'])->name('quote.show');
+
+//AVP
+Route::get('/avp/create/{id}', [AvpController::class, 'create'])->middleware(['auth'])->name('avp.create');
+Route::post('/avp/store', [AvpController::class, 'store'])->middleware(['auth'])->name('avp.store');
 
 //Payment
 Route::post('/secure-paiement', [PaiementController::class, 'create'])->name('paiement');

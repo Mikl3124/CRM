@@ -4,11 +4,15 @@ namespace App\Http\Controllers;
 
 use Stripe\Stripe;
 use App\Models\Quote;
+use App\Models\Payment;
 use App\Models\Customer;
+use App\Mail\CreateQuote;
 use Stripe\PaymentIntent;
+use App\Mail\QuoteAccepted;
 use Illuminate\Support\Arr;
 use Illuminate\Http\Request;
 use Laravel\Cashier\Cashier;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Redirect;
 
 class PaiementController extends Controller
@@ -23,7 +27,12 @@ class PaiementController extends Controller
         $result += $option;
       }
     }
+    //On calcul l'acompte
     $total = ((int)(($quote->amount + $result) * 30));
+
+    //On enregistre le nouveau montant du devis
+    $quote->amount = $result + $quote->amount;
+    $quote->save();
 
     Stripe::setApiKey(env("STRIPE_SECRET"));
     $intent = PaymentIntent::create([
@@ -54,7 +63,22 @@ class PaiementController extends Controller
 
   public function success(Request $request)
   {
-    dd($request);
+
+    $customer = Customer::find($request->customer_id);
+    $payment = new Payment;
+    $payment->quote_id = $request->quote_id;
+    $payment->amount = $request->amount;
+    $payment->customer_id = $request->customer_id;
+    $payment->save();
+
+    $quote = Quote::find($request->quote_id);
+    $quote->state = 'payed';
+    $quote->save();
+
+
+    Mail::to(env("MAIL_ADMIN"))
+      ->send(new QuoteAccepted($quote, $customer));
+
     return view('payment.success')->with('success', "Votre règlement a bien été enregistré");
   }
 }

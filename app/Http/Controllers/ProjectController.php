@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Avp;
 use App\Models\Quote;
 use App\Models\Project;
 use App\Models\Customer;
@@ -60,7 +61,8 @@ class ProjectController extends Controller
   {
 
     $project = Project::find($id);
-    $quotes = Quote::where('project_id', $project->id)->orderBy('created_at', 'DESC')->get();
-    return view('project.show', compact('project', 'quotes'));
+    $quote = Quote::where('project_id', $project->id)->first();
+    $avp = Avp::where('project_id', $project->id)->first();
+    return view('project.show', compact('project', 'quote', 'avp'));
   }
 }

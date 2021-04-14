@@ -13,6 +13,7 @@ class CreatePaymentsTable extends Migration
       $table->timestamps();
       $table->string('quote_id');
       $table->integer('amount');
+      $table->integer('customer_id');
     });
   }
 
