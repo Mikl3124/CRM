@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Project;
 use Illuminate\Database\Eloquent\Model;
 
 class Avp extends Model
@@ -12,6 +13,6 @@ class Avp extends Model
 
   public function project()
   {
-    return $this->hasOne('Project', 'project_id');
+    return $this->belongsTo(Project::class);
   }
 }

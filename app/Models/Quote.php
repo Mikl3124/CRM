@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Payment;
 use App\Models\Project;
 use Illuminate\Database\Eloquent\Model;
 use CyrildeWit\EloquentViewable\Contracts\Viewable;
@@ -17,5 +18,10 @@ class Quote extends Model implements Viewable
   public function project()
   {
     return $this->belongsTo(Project::class);
+  }
+
+  public function payment()
+  {
+    return $this->belongsTo(Payment::class);
   }
 }
