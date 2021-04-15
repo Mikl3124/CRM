@@ -14,13 +14,20 @@
 
             <div class="form-group">
               <label for="to_pay">Montant à payer:</label>
-              <input type="number" step="0.01" name="to_pay" class="form-control" id="to_pay" value="{{ $to_pay }}">
+              <input type="number" step="0.01" name="to_pay" class="form-control" id="to_pay" value="{{ $to_pay }}" required>
             </div>
 
             <div class="form-group">
               <label for="avp-link">Veuillez coller le lien</label>
-              <textarea name="url" class="form-control" id="avp-link" rows="3"></textarea>
+              <textarea name="url" class="form-control" id="avp-link" rows="3" required></textarea>
             </div>
+
+            <div class="form-group">
+              <input type="file" name="quoteFile" class="form-control-file @error('file_projet') is-invalid @enderror" id="file-message" value="{{ old('file-message') }}" name="file_message" required>
+              @error('file_message')
+              <div class="invalid-feedback">{{ $message }}</div>
+              @enderror
+          </div>
 
             <button class="btn btn-primary" type="submit">Envoyer</button>
           </form>

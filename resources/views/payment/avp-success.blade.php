@@ -41,7 +41,11 @@
         <div class="text-center">
           <h3>Merci!</h3>
           <p>Le paiement a bien été réceptionné</p>
-          <a href="https://nyleo.fr" class="btn btn-success">Aller sur nyleo.fr</a>
+          <form action="{{ 'download-avp' }}" method="post">
+            @csrf
+            <input type="hidden" name="avp_id" value="{{ $avp->id }}">
+            <button class="btn btn-success" type="submit">Télécharger votre projet</button>
+          </form>
         </div>
     </div>
 </div>
