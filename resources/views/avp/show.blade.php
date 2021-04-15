@@ -7,15 +7,13 @@
           @auth
             <a class="btn btn-primary" href="{{ route('dashboard') }}">Retour au Dashboard</a>
           @endauth
-        <h3 class="text-center mt-2 mb-4">Votre avant projet</h3>
+        <h3 class="text-center my-2">Votre avant projet</h3>
         <div class="text-center my-2">
-            <form action="#" class="my-4">
-              <div class="text-center">
-                  <button id="submit" class="btn btn-success my-3" data-secret="">
-                    Accepter le projet et régler l'acompte
-                    </button>
-              </div>
-            </form>
+          <form action="{{ route('createAvpPayement')}}" method="post">
+            @csrf
+              <input type="hidden" name="avp_id" value="{{ $avp->id }}">
+              <button class="btn btn-success my-3" type="submit">Accepter le projet et régler le solde</button>
+          </form>
         </div>
         <div>
           {!! $avp->url !!}

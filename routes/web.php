@@ -50,8 +50,9 @@ Route::post('/avp/store', [AvpController::class, 'store'])->middleware(['auth'])
 Route::get('/avp/show/{token}', [AvpController::class, 'show'])->name('avp.show');
 
 //Payment
-Route::post('/secure-paiement', [PaiementController::class, 'create'])->name('paiement');
-Route::post('/payment-success/', [PaiementController::class, 'success'])->name('success-paiement');
+Route::post('/quote-secure-paiement', [PaiementController::class, 'createQuotePayement'])->name('createQuotePayement');
+Route::post('/avp-secure-paiement', [PaiementController::class, 'createAvpPayement'])->name('createAvpPayement');
+Route::post('/payment-quote-success/', [PaiementController::class, 'success'])->name('success-paiement');
 
 Auth::routes();
 

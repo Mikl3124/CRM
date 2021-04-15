@@ -23,13 +23,13 @@ class Project extends Model
     return $this->belongsTo(Customer::class);
   }
 
-  public function quotes()
+  public function quote()
   {
-    return $this->hasMany(Quote::class);
+    return $this->hasOne(Quote::class);
   }
 
-  public function avps()
+  public function avp()
   {
-    return $this->hasMany(Avp::class);
+    return $this->hasOne(Avp::class);
   }
 }

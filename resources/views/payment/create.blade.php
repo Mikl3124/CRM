@@ -26,9 +26,6 @@
     <!-- Styles -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-
-
-
 </head>
 
 <body>
@@ -39,6 +36,7 @@
             <p class="lead text-center">Veuillez saisir vos informations, afin de régler {{ number_format((float)$total/100, 2, '.', '') }}€ à Nyleo Conception </p>
             <div id="payment-pending" class="card">
               <form action="{{ route('success-paiement') }}" method="POST" id="form">
+                @csrf
               <div class="row justify-content-md-center mt-3">
                 <div id="card-element" class="p-3 border border-secondary rounded mx-5 col-md-6">
                   <!-- Elements will create input elements here -->

@@ -10,9 +10,17 @@
         <h3 class="text-center mt-2 mb-4">Votre devis</h3>
         <div class="text-center my-2">
           @if ($quote->accepted == 0)
-            <button type="button" class="btn btn-success mb-2" data-toggle="modal" data-target="#paymentModalCenter">
-              Accepter le devis et régler l'acompte
-            </button>
+            @if ($options->isnotempty())
+              <button type="button" class="btn btn-success mb-2" data-toggle="modal" data-target="#paymentModalCenter">
+                Accepter le devis et régler l'acompte
+              </button>
+            @else
+            <form action="{{ route('createQuotePayement')}}" method="post">
+              @csrf
+                <input type="hidden" name="quote_id" value="{{ $quote->id }}">
+                <button class="btn btn-success my-3" type="submit">Accepter le devis et régler l'acompte (30%)</button>
+            </form>
+            @endif
           @else
             <button type="button" class="btn btn-primary disabled mb-2">
               Vous avez déjà accepté le devis
@@ -33,8 +41,8 @@
       <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
              {{--   ----------- Si le devis contient des options-------------- --}}
-          @if ($options->isnotempty())
-            <form action="{{ route('paiement')}}" method="post">
+
+            <form action="{{ route('createQuotePayement')}}" method="post">
               @csrf
               <div class="modal-header">
                 <input type="hidden" name="quote_id" value="{{ $quote->id }}">
@@ -58,31 +66,6 @@
               </div>
             </form>
         </div>
-          {{--   ----------- Si le devis ne contient pas des options-------------- --}}
-          @else
-          <div class="modal-header">
-            <h5 class="modal-title" id="paymentModalLongTitle">Règlement de {{ $display_amount }}€ (30% du devis)</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
-            <form action="#" class="my-4">
-              <div id="card-element">
-              <!-- Elements will create input elements here -->
-              </div>
-                    <!-- We'll put the error messages in this element -->
-              <div id="card-errors" class="mb-3" role="alert"></div>
-              <div class="text-center">
-                  <button type="button" class="btn btn-secondary my-3" data-dismiss="modal">Retour</button>
-                  <button id="submit" class="btn btn-success my-3" data-secret="<?= $intent->client_secret ?>">
-                    Régler l'acompte
-                    </button>
-              </div>
-            </form>
-          </div>
-
-          @endif
 
       </div>
 

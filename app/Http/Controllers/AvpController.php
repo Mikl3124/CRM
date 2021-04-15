@@ -27,8 +27,17 @@ class AvpController extends Controller
       $paiement->amount = 0;
       $paiement->quote_id = $quote->id;
     }
+    $options = $quote->options;
 
-    $to_pay = $quote->amount - ($paiement->amount / 100);
+    $result = 0;
+
+    // On récupère les options
+    foreach ($options as $option) {
+      $result += $option->amount;
+    }
+
+    // On totalise le montant du devis + options - l'acompte
+    $to_pay = ($quote->amount + $result) - ($paiement->amount / 100);
 
     if ($project->customer->user_id === Auth::user()->id) {
       return view('avp.create', compact('project', 'to_pay'));

@@ -8,7 +8,7 @@
   <div>
     <li>
       @foreach ($projects as $project)
-          <ul><a href="{{ route('project.show', $project->id) }}">{{ $project->title }}</a></ul>
+          <ul><a href="{{ route('project.show', $project->id) }}">{{ $project->title }} </a></ul>
       @endforeach
     </li>
   </div>

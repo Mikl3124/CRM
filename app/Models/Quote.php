@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Option;
 use App\Models\Payment;
 use App\Models\Project;
 use Illuminate\Database\Eloquent\Model;
@@ -22,6 +23,11 @@ class Quote extends Model implements Viewable
 
   public function payment()
   {
-    return $this->belongsTo(Payment::class);
+    return $this->hasOne(Payment::class);
+  }
+
+  public function options()
+  {
+    return $this->hasMany(Option::class);
   }
 }
