@@ -70,6 +70,7 @@ class PaiementController extends Controller
 
   public function createAvpPayement(Request $request)
   {
+
     $avp = Avp::find($request->avp_id);
     $customer = Customer::find($avp->project->customer_id);
     $options = Option::where('quote_id', $avp->project->quote->id)->get();
@@ -90,7 +91,7 @@ class PaiementController extends Controller
 
     //On enregistre le montant à payer + options
     $project_amount = $avp->project->quote->amount + $sum_options;
-    $total = ($project_amount - $acount) * 100;
+    $total = ($project_amount * 100) - ($acount->amount * 100);
 
     Stripe::setApiKey(env("STRIPE_SECRET"));
     $intent = PaymentIntent::create([
@@ -150,7 +151,6 @@ class PaiementController extends Controller
     $payment->customer_id = $request->customer_id;
     $payment->save();
 
-    dd('coco');
     $quote = Quote::find($request->quote_id);
     $quote->state = 'payed';
     $quote->save();

@@ -35,9 +35,8 @@ class AvpController extends Controller
     foreach ($options as $option) {
       $result += $option->amount;
     }
-
     // On totalise le montant du devis + options - l'acompte
-    $to_pay = ($quote->amount + $result) - ($paiement->amount / 100);
+    $to_pay = ($quote->amount + $result) - ($paiement->amount);
 
     if ($project->customer->user_id === Auth::user()->id) {
       return view('avp.create', compact('project', 'to_pay'));
@@ -59,10 +58,6 @@ class AvpController extends Controller
   public function show($token)
   {
     $avp = Avp::where('token', $token)->first();
-
-    if (!Auth::check()) {
-      views($avp)->record();
-    }
 
     return view('avp.show', compact('avp'));
   }
