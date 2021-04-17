@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\File;
 use App\Models\Quote;
 use App\Models\Option;
+use App\Models\Payment;
 use App\Models\Project;
 use App\Models\Customer;
 use App\Mail\CreateQuote;
@@ -26,12 +27,25 @@ class QuoteController extends Controller
   public function show($token)
   {
     $quote = Quote::where('token', $token)->first();
-    if (!Auth::check()) {
-      views($quote)->record();
-    }
 
     $options = Option::where('quote_id', $quote->id)->get();
     return view('quote.show', compact('quote', 'options'));
+  }
+
+  public function createAcount(Request $request)
+  {
+
+    $quote = Quote::where('id', $request->quote_id)->first();
+    if (Auth::check()) {
+      $customer = Customer::find($quote->project->customer_id);
+      $payment = new Payment;
+      $payment->quote_id = $request->quote_id;
+      $payment->amount = $request->quote_amount;
+      $payment->customer_id = $customer->id;
+      $payment->save();
+    }
+
+    return redirect()->route('customer.show', $quote->project->customer_id)->with('success', "L'acompte de {$payment->amount}€ a bien été enregistré");
   }
 
   public function store(Request $request)
@@ -98,8 +112,8 @@ class QuoteController extends Controller
       }
       // Notification
 
-      Mail::to($customer->email)
-        ->send(new CreateQuote($quote, $customer));
+      // Mail::to($customer->email)
+      //   ->send(new CreateQuote($quote, $customer));
 
       return redirect()->route('customer.show', $quote->project->customer_id)->with('success', "Le devis a bien été ajouté");
     }

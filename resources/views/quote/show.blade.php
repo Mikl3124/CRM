@@ -9,6 +9,14 @@
           @endauth
         <h3 class="text-center mt-2 mb-4">Votre devis</h3>
         <div class="text-center my-2">
+          @auth
+          <form action="{{ route('create.acount') }}" method="post">
+            @csrf
+              <input type="hidden" name="quote_id" value="{{ $quote->id }}">
+              <input type="number" step="0.01" name="quote_amount" required>
+              <button class="btn btn-success my-3" type="submit">Saisir un acompte</button>
+          </form>
+          @endauth
           @if ($quote->accepted == 0)
             @if ($options->isnotempty())
               <button type="button" class="btn btn-success mb-2" data-toggle="modal" data-target="#paymentModalCenter">

@@ -35,7 +35,7 @@
             <hr class="my-4">
             <p class="lead text-center">Veuillez saisir vos informations, afin de régler {{ number_format((float)$total/100, 2, '.', '') }}€ à Nyleo Conception </p>
             <div id="payment-pending" class="card">
-              <form action="{{ route('success-paiement') }}" method="POST" id="form">
+              <form action="{{ route('success-avp') }}" method="POST" id="form">
                 @csrf
               <div class="row justify-content-md-center mt-3">
                 <div id="card-element" class="p-3 border border-secondary rounded mx-5 col-md-6">
@@ -123,10 +123,10 @@
                     // post-payment actions.
 
                     console.log(result.paymentIntent);
-                    $('#inset_form').html('<form action="{{ route ('success-paiement') }}" name="stripe" method="post" style="display:none;"><input type="text" name="amount" value="{{ $total }}"/><input type="text" name="quote_id" value="{{ $quote->id }}"/><input type="text" name="customer_id" value="{{ $customer->id }}"/></form>');
+                    $('#inset_form').html('<form action="{{ route ('success-quote') }}" name="stripe" method="post" style="display:none;"><input type="text" name="amount" value="{{ $total }}"/><input type="text" name="quote_id" value="{{ $quote->id }}"/><input type="text" name="customer_id" value="{{ $customer->id }}"/></form>');
 
                     document.forms['stripe'].submit();
-                    //window.location.replace('{{ route ('success-paiement') }}');
+                    //window.location.replace('{{ route ('success-avp') }}');
                 }
             }
         });

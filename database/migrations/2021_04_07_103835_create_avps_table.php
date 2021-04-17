@@ -14,7 +14,9 @@ class CreateAvpsTable extends Migration
       $table->integer('project_id')->unsigned();
       $table->string('url');
       $table->string('token');
-      $table->boolean('accepted')->default(false);
+      $table->string('avp_url');
+      $table->string('filename');
+      $table->boolean('payed')->default(false);
     });
   }
 

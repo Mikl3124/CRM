@@ -57,7 +57,7 @@ class PaiementController extends Controller
       $stripeCustomer = Cashier::findBillable($customer->stripe_id);
     }
 
-    return view('payment.create', [
+    return view('payment.quote', [
       'clientSecret' => $clientSecret,
       'intent' => $intent,
       'total' => $total,
@@ -70,6 +70,7 @@ class PaiementController extends Controller
 
   public function createAvpPayement(Request $request)
   {
+
     $avp = Avp::find($request->avp_id);
     $customer = Customer::find($avp->project->customer_id);
     $options = Option::where('quote_id', $avp->project->quote->id)->get();
@@ -84,13 +85,14 @@ class PaiementController extends Controller
 
     //On récupère l'acompte
     $acount = $avp->project->quote->payment;
-    if ($acount === null) {
-      $acount = 0;
-    }
 
     //On enregistre le montant à payer + options
     $project_amount = $avp->project->quote->amount + $sum_options;
-    $total = ($project_amount - $acount) * 100;
+    if ($acount === null) {
+      $total = ($project_amount * 100);
+    } else {
+      $total = ($project_amount * 100) - ($acount->amount * 100);
+    }
 
     Stripe::setApiKey(env("STRIPE_SECRET"));
     $intent = PaymentIntent::create([
@@ -108,7 +110,7 @@ class PaiementController extends Controller
       $stripeCustomer = Cashier::findBillable($customer->stripe_id);
     }
 
-    return view('payment.create', [
+    return view('payment.avp', [
       'clientSecret' => $clientSecret,
       'intent' => $intent,
       'total' => $total,
@@ -143,22 +145,21 @@ class PaiementController extends Controller
   public function successAvp(Request $request)
   {
 
+    $quote = Quote::find($request->quote_id);
+    $avp = $quote->project->avp;
+    $avp->payed = 1;
     $customer = Customer::find($request->customer_id);
     $payment = new Payment;
     $payment->quote_id = $request->quote_id;
     $payment->amount = $request->amount;
     $payment->customer_id = $request->customer_id;
+
     $payment->save();
-
-    dd('coco');
-    $quote = Quote::find($request->quote_id);
-    $quote->state = 'payed';
-    $quote->save();
-
+    $avp->save();
 
     Mail::to(env("MAIL_ADMIN"))
       ->send(new QuoteAccepted($quote, $customer));
 
-    return view('payment.avp-success')->with('success', "Votre règlement a bien été enregistré");
+    return view('payment.avp-success', compact('avp'))->with('success', "Votre règlement a bien été enregistré");
   }
 }

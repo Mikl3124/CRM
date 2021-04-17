@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Avp;
+use App\Models\File;
 use App\Models\Quote;
 use App\Models\Option;
 use App\Models\Payment;
@@ -10,6 +11,7 @@ use App\Models\Project;
 use App\Models\Customer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class AvpController extends Controller
 {
@@ -35,9 +37,8 @@ class AvpController extends Controller
     foreach ($options as $option) {
       $result += $option->amount;
     }
-
     // On totalise le montant du devis + options - l'acompte
-    $to_pay = ($quote->amount + $result) - ($paiement->amount / 100);
+    $to_pay = ($quote->amount + $result) - ($paiement->amount);
 
     if ($project->customer->user_id === Auth::user()->id) {
       return view('avp.create', compact('project', 'to_pay'));
@@ -51,6 +52,38 @@ class AvpController extends Controller
     $avp->url = $request->url;
     $avp->project_id = $request->project_id;
     $avp->token = substr(str_shuffle(str_repeat("0123456789abcdefghijklmnopqrstuvwxyz", 6)), 0, 6);
+    $customer = Customer::find($avp->project->customer_id);
+
+    if ($files = $request->file('quoteFile')) {
+
+      $filenamewithextension = $request->file('quoteFile')->getClientOriginalName();
+
+      //get filename without extension
+      $filename = pathinfo($filenamewithextension, PATHINFO_FILENAME);
+
+      //get file extension
+      $extension = $request->file('quoteFile')->getClientOriginalExtension();
+
+      //filename to store
+      //$path = 'documents/' . $user->lastname. '_' . $user->firstname . '_' . time();
+
+      $filenametostore = $filename . '_' . time() . '.' . $extension;
+
+
+      $filename = $files->storeAs(
+        'documents',
+        $filenametostore
+      );
+      File::create([
+        'user_id' => $customer->id,
+        'url' => Storage::disk('s3')->url('documents/' . $filenametostore),
+        'filename' => $filenamewithextension
+      ]);
+      //Store $filenametostore in the database
+      $avp->avp_url = $filename;
+      $avp->filename = $filenamewithextension;
+    }
+
     $avp->save();
 
     return redirect()->route('customer.show', $avp->project->customer_id)->with('success', "L'avant projet a bien été ajouté");
@@ -60,10 +93,18 @@ class AvpController extends Controller
   {
     $avp = Avp::where('token', $token)->first();
 
-    if (!Auth::check()) {
-      views($avp)->record();
+    if ($avp->payed === 1) {
+      return Storage::download($avp->avp_url);
     }
 
     return view('avp.show', compact('avp'));
+  }
+
+
+  public function download(Request $request)
+  {
+    $avp = Avp::where('id', $request->avp_id)->first();
+
+    return Storage::download($avp->avp_url);
   }
 }

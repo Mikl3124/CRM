@@ -43,16 +43,19 @@ Route::get('/project/show/{id}', [ProjectController::class, 'show'])->middleware
 Route::get('/quote/create/{id}', [QuoteController::class, 'create'])->middleware(['auth'])->name('quote.create');
 Route::post('/quote/store', [QuoteController::class, 'store'])->middleware(['auth'])->name('quote.store');
 Route::get('/quote/show/{token}', [QuoteController::class, 'show'])->name('quote.show');
+Route::post('/quote/create-acount', [QuoteController::class, 'createAcount'])->middleware(['auth'])->name('create.acount');
 
 //AVP
 Route::get('/avp/create/{id}', [AvpController::class, 'create'])->middleware(['auth'])->name('avp.create');
 Route::post('/avp/store', [AvpController::class, 'store'])->middleware(['auth'])->name('avp.store');
 Route::get('/avp/show/{token}', [AvpController::class, 'show'])->name('avp.show');
+Route::post('/download-avp/', [AvpController::class, 'download'])->name('download-avp');
 
 //Payment
 Route::post('/quote-secure-paiement', [PaiementController::class, 'createQuotePayement'])->name('createQuotePayement');
 Route::post('/avp-secure-paiement', [PaiementController::class, 'createAvpPayement'])->name('createAvpPayement');
-Route::post('/payment-quote-success/', [PaiementController::class, 'success'])->name('success-paiement');
+Route::post('/payment-quote-success/', [PaiementController::class, 'successQuote'])->name('success-quote');
+Route::post('/payment-avp-success/', [PaiementController::class, 'successAvp'])->name('success-avp');
 
 Auth::routes();
 
