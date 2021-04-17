@@ -37,9 +37,9 @@ class PaiementController extends Controller
     //On calcul l'acompte
     $total = ((int)(($quote->amount + $sum_options) * 30));
 
-    //On enregistre le nouveau montant du devis
-    $quote->amount = $sum_options + $quote->amount;
-    $quote->save();
+    // On enregistre le nouveau montant du devis
+    // $quote->amount = $sum_options + $quote->amount;
+    // $quote->save();
 
     Stripe::setApiKey(env("STRIPE_SECRET"));
     $intent = PaymentIntent::create([
