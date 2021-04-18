@@ -95,7 +95,7 @@ class PaiementController extends Controller
     if ($payment === null) {
       $total = ($project_amount * 100);
     } else {
-      $total = ($project_amount * 100) - ($payment->amount);
+      $total = ($project_amount * 100) - ($payment->amount * 100);
     }
 
     Stripe::setApiKey(env("STRIPE_SECRET"));
