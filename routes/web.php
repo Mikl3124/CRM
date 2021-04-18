@@ -25,8 +25,8 @@ use App\Http\Controllers\PaiementController;
 
 Auth::routes();
 
-Route::get('/avp/show/wgk37p', function () {
-    return redirect('/avp/show/w3hvyv');
+Route::get('avp/show/wgk37p', function () {
+    return redirect('avp/show/w3hvyv');
 });
 
 Route::post('access', [HomeController::class, 'access'])->name('access');
