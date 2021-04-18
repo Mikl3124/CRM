@@ -40,7 +40,7 @@ class AvpController extends Controller
     }
 
     // On totalise le montant du devis + options - l'acompte
-    $to_pay = ($quote->amount + $result) - ($paiement->amount / 100);
+    $to_pay = ($quote->amount + $result) - ($paiement->amount);
 
     if ($project->customer->user_id === Auth::user()->id) {
       return view('avp.create', compact('project', 'to_pay'));

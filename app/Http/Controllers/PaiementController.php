@@ -63,7 +63,7 @@ class PaiementController extends Controller
       'total' => $total,
       'acount' => $total * 30,
       'amount' =>  $total,
-      'customer' => $customer,
+      'customer' => $customer->lastname,
       'quote' => $quote,
     ]);
   }
@@ -88,7 +88,6 @@ class PaiementController extends Controller
 
     //On récupère l'acompte
     $payment = Payment::where('quote_id', $quote->id)->first();
-
 
     //On enregistre le montant à payer + options
     $project_amount = $quote->amount + $sum_options;
