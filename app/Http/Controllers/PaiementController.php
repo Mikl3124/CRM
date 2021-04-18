@@ -149,8 +149,8 @@ class PaiementController extends Controller
 
   public function successAvp(Request $request)
   {
-    dd($request[0]);
-    $quote = Quote::find($request->quote_id);
+    dd($request);
+    $quote = Quote::find($request->quote_id)->first;
     dd($quote);
     
     $avp = $quote->project->avp;
