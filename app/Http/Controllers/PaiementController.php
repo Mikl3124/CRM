@@ -122,7 +122,7 @@ class PaiementController extends Controller
       'acount' => $total * 30,
       'amount' =>  $total * 100,
       'customer' => $customer,
-      'quote' => $avp,
+      'quote' => $quote,
     ]);
   }
 
@@ -149,9 +149,7 @@ class PaiementController extends Controller
 
   public function successAvp(Request $request)
   {
-    dd($request);
-    $quote = Quote::find($request->quote_id)->first;
-    dd($quote);
+    $quote = Quote::find($request->quote_id);
     
     $avp = $quote->project->avp;
     $avp->payed = 1;
