@@ -6,7 +6,8 @@
   <h1>Le projet</h1>
 
   @isset($quote)
-  <a class="btn btn-secondary my-4" href="{{ route('quote.show', $quote->token) }}">Voir le devis ({{$quote->amount}}€)</a>
+    <a class="btn btn-secondary my-4" href="{{ route('quote.show', $quote->token) }}">Voir le devis ({{$quote->amount}}€)</a>
+
   @else
   <a class="btn btn-success my-4" href="{{ route('quote.create', $project->id) }}">Créer un devis</a>
   @endisset

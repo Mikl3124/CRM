@@ -2,6 +2,12 @@
 
 namespace App\Http\Controllers {
 
+  use App\Models\File;
+
+  use Illuminate\Support\Facades\Storage;
+
+  use App\Models\Quote;
+
   use App\Models\Project;
 
   use Illuminate\Support\Facades\Auth;
@@ -29,6 +35,26 @@ namespace App\Http\Controllers {
       if (($customer->user->id) === Auth::user()->id) {
         return view('customer.show', compact('customer', 'projects'));
       }
+    }
+
+    public function delete(Request $request)
+    {
+      $customer = Customer::find($request->customer_id);
+
+      if (Auth::user()->id === $customer->user->id) {
+
+        $files = $customer->files;
+
+        File::where('customer_id', $customer->id)->delete();
+        foreach ($files as $file) {
+          Storage::delete("documents/$file->direction");
+        }
+
+        if ($customer->delete()) {
+          return redirect()->back()->with('success', "Le client a été supprimé avec succès");
+        }
+      }
+      return redirect()->back()->with('error', "une erreur est survenue, suppression impossible");
     }
 
     public function store(Request $request)

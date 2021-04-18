@@ -6,17 +6,27 @@
     <div class="col-sm-12 col-md-12">
           @auth
             <a class="btn btn-primary" href="{{ route('dashboard') }}">Retour au Dashboard</a>
+            <div class="text-center">
+              <form action="{{ route('create.acount') }}" method="post">
+                @csrf
+                  <input type="hidden" name="quote_id" value="{{ $quote->id }}">
+                  <input type="number" step="0.01" name="quote_amount" required>
+                  <button class="btn btn-success my-3" type="submit">Saisir un acompte</button>
+              </form>
+              <form action="{{ route('quote.delete') }}" method="post">
+                @csrf
+                <input type="hidden" name="quote_id" value="{{ $quote->id }}">
+                <button type="submit" class="btn btn-danger my-4" onclick="return confirm('Etes vous sûr de vouloir effacer ce devis?')">Supprimer le devis</button>
+              </form>
+            </div>    
           @endauth
-        <h3 class="text-center mt-2 mb-4">Votre devis</h3>
+
+          @guest
+            <h3 class="text-center mt-2 mb-4">Votre devis</h3>
+          @endguest
+
         <div class="text-center my-2">
-          @auth
-          <form action="{{ route('create.acount') }}" method="post">
-            @csrf
-              <input type="hidden" name="quote_id" value="{{ $quote->id }}">
-              <input type="number" step="0.01" name="quote_amount" required>
-              <button class="btn btn-success my-3" type="submit">Saisir un acompte</button>
-          </form>
-          @endauth
+
           @if ($quote->accepted == 0)
             @if ($options->isnotempty())
               <button type="button" class="btn btn-success mb-2" data-toggle="modal" data-target="#paymentModalCenter">

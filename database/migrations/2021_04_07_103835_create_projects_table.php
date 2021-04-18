@@ -11,7 +11,8 @@ class CreateProjectsTable extends Migration
 		Schema::create('projects', function (Blueprint $table) {
 			$table->increments('id');
 			$table->timestamps();
-			$table->integer('customer_id');
+			$table->integer('customer_id')->unsigned();
+			$table->foreign('customer_id')->references('id')->on('customers')->onDelete('cascade');
 			$table->string('statement')->default('pending');
 			$table->string('title');
 		});

@@ -25,7 +25,7 @@ class Project extends Model
 
   public function quote()
   {
-    return $this->hasOne(Quote::class);
+    return $this->hasMany(Quote::class);
   }
 
   public function avp()

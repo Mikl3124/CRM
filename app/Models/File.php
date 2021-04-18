@@ -7,4 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 class File extends Model
 {
     protected $guarded = [];
+
+    public function customer()
+    {
+        return $this->belongsTo(Customer::class);
+    }
 }

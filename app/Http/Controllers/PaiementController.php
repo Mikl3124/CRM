@@ -62,7 +62,7 @@ class PaiementController extends Controller
       'intent' => $intent,
       'total' => $total,
       'acount' => $total * 30,
-      'amount' =>  $total * 100,
+      'amount' =>  $total,
       'customer' => $customer,
       'quote' => $quote,
     ]);
@@ -72,8 +72,12 @@ class PaiementController extends Controller
   {
 
     $avp = Avp::find($request->avp_id);
+
     $customer = Customer::find($avp->project->customer_id);
-    $options = Option::where('quote_id', $avp->project->quote->id)->get();
+
+    $quote= $avp->project->quote->first();
+
+    $options = Option::where('quote_id', $quote->id)->get();
 
     $sum_options = 0;
     foreach ($options as $key => $value) {
@@ -82,16 +86,17 @@ class PaiementController extends Controller
         $sum_options += $value->amount;
     }
 
-
     //On récupère l'acompte
-    $acount = $avp->project->quote->payment;
+    $payment = Payment::where('quote_id', $quote->id)->first();
+
 
     //On enregistre le montant à payer + options
-    $project_amount = $avp->project->quote->amount + $sum_options;
-    if ($acount === null) {
+    $project_amount = $quote->amount + $sum_options;
+
+    if ($payment === null) {
       $total = ($project_amount * 100);
     } else {
-      $total = ($project_amount * 100) - ($acount->amount * 100);
+      $total = ($project_amount * 100) - ($payment->amount);
     }
 
     Stripe::setApiKey(env("STRIPE_SECRET"));
@@ -144,8 +149,10 @@ class PaiementController extends Controller
 
   public function successAvp(Request $request)
   {
-
+    dd($request[0]);
     $quote = Quote::find($request->quote_id);
+    dd($quote);
+    
     $avp = $quote->project->avp;
     $avp->payed = 1;
     $customer = Customer::find($request->customer_id);

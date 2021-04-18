@@ -2,7 +2,10 @@
 
 namespace App\Models;
 
+use App\Models\File;
 use App\Models\User;
+use App\Models\Quote;
+use App\Models\Project;
 use Laravel\Cashier\Billable;
 use Illuminate\Database\Eloquent\Model;
 
@@ -15,7 +18,12 @@ class Customer extends Model
 
   public function project()
   {
-    return $this->hasMany('Project', 'project_id');
+    return $this->hasMany(Project::class);
+  }
+
+  public function quotes()
+  {
+    return $this->hasMany(Quote::class);
   }
 
   public function payments()
@@ -26,5 +34,10 @@ class Customer extends Model
   public function user()
   {
     return $this->belongsTo(User::class);
+  }
+
+  public function files()
+  {
+    return $this->hasMany(File::class);
   }
 }

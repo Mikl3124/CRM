@@ -4,12 +4,9 @@ namespace App\Models;
 
 use App\Models\Project;
 use Illuminate\Database\Eloquent\Model;
-use CyrildeWit\EloquentViewable\InteractsWithViews;
 
 class Avp extends Model
 {
-
-  use InteractsWithViews;
 
   protected $guarded = [];
   public $timestamps = true;
@@ -17,5 +14,10 @@ class Avp extends Model
   public function project()
   {
     return $this->belongsTo(Project::class);
+  }
+
+  public function customer()
+  {
+    return $this->belongsTo(Customer::class);
   }
 }

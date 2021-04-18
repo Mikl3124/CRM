@@ -29,6 +29,7 @@ class AvpController extends Controller
       $paiement->amount = 0;
       $paiement->quote_id = $quote->id;
     }
+
     $options = $quote->options;
 
     $result = 0;
@@ -37,8 +38,9 @@ class AvpController extends Controller
     foreach ($options as $option) {
       $result += $option->amount;
     }
+
     // On totalise le montant du devis + options - l'acompte
-    $to_pay = ($quote->amount + $result) - ($paiement->amount);
+    $to_pay = ($quote->amount + $result) - ($paiement->amount / 100);
 
     if ($project->customer->user_id === Auth::user()->id) {
       return view('avp.create', compact('project', 'to_pay'));
@@ -53,7 +55,7 @@ class AvpController extends Controller
     $avp->project_id = $request->project_id;
     $avp->token = substr(str_shuffle(str_repeat("0123456789abcdefghijklmnopqrstuvwxyz", 6)), 0, 6);
     $customer = Customer::find($avp->project->customer_id);
-
+    $avp->customer_id = $customer->id;
     if ($files = $request->file('quoteFile')) {
 
       $filenamewithextension = $request->file('quoteFile')->getClientOriginalName();
@@ -75,9 +77,12 @@ class AvpController extends Controller
         $filenametostore
       );
       File::create([
-        'user_id' => $customer->id,
+        'customer_id' => $customer->id,
         'url' => Storage::disk('s3')->url('documents/' . $filenametostore),
-        'filename' => $filenamewithextension
+        'filename' => $filenamewithextension,
+        'project_id' => $request->project_id,
+        'direction' => $filenametostore,
+        'type' => "project"
       ]);
       //Store $filenametostore in the database
       $avp->avp_url = $filename;
@@ -98,6 +103,32 @@ class AvpController extends Controller
     }
 
     return view('avp.show', compact('avp'));
+  }
+
+  public function delete(Request $request)
+  {
+
+    $avp = Avp::find($request->avp_id);
+
+    $project = Project::find($avp->project_id);
+
+    if (Auth::user()->id === $project->customer->user->id) {
+
+      $files = File::where('project_id', $project->id)->where('type', 'project')->get();
+
+      foreach ($files as $file) {
+        Storage::delete("documents/$file->direction");
+      }
+      File::where('project_id', $project->id)->where('type', 'project')->delete();
+
+      if ($avp->delete()) {
+
+        $avp = Avp::where('project_id', $project->id)->first();
+        return redirect()->route('project.show', $project->id)->with('success', "L'avant projet a été supprimé avec succès");
+      }
+    }
+
+    return redirect()->back()->with('error', "Une erreur est survenue, suppression impossible");
   }
 
 

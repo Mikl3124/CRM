@@ -6,12 +6,9 @@ use App\Models\Option;
 use App\Models\Payment;
 use App\Models\Project;
 use Illuminate\Database\Eloquent\Model;
-use CyrildeWit\EloquentViewable\Contracts\Viewable;
-use CyrildeWit\EloquentViewable\InteractsWithViews;
 
-class Quote extends Model implements Viewable
+class Quote extends Model
 {
-  use InteractsWithViews;
 
   protected $guarded = [];
   public $timestamps = true;

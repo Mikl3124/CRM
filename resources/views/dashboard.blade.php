@@ -15,8 +15,8 @@
             <th scope="col">Prénom</th>
             <th scope="col">Email</th>
             <th scope="col">Phone</th>
-            <th scope="col" class="text-center">Accéder</th>
-            <th scope="col" class="text-center">Supprimer</th>
+            <th scope="col" class="text-center"></th>
+            <th scope="col" class="text-center"></th>
           </tr>
         </thead>
         <tbody>
@@ -26,16 +26,20 @@
               <td>{{ $customer->firstname }}</td>
               <td>{{ $customer->email }}</td>
               <td>{{ $customer->phone }}</td>
-              <td class="text-center"><a href="{{ route('customer.show', $customer->id) }}">Voir</a></td>
-              <td class="text-center"><a href="#">Delete</a></td>
+              <td class="text-center"><a class="btn btn-primary" href="{{ route('customer.show', $customer->id) }}">Accéder</a></td>
+              <td class="text-center">
+                <!-- Modal Lunch Delete -->
+              <form action="{{ route('customer.delete') }}" method="post">
+                @csrf
+                <input type="hidden" name="customer_id" value="{{ $customer->id }}">
+                <button type="submit" class="btn btn-danger" onclick="return confirm('Etes vous sûr de vouloir effacer ce client?')">Supprimer</button>
+              </form>
+              </td>
             </tr>
           @endforeach
           </tbody>
       </table>
-
   @endisset
-
-
 
 </div>
 

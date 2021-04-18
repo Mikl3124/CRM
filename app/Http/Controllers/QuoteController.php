@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Avp;
 use App\Models\File;
 use App\Models\Quote;
 use App\Models\Option;
@@ -54,6 +55,7 @@ class QuoteController extends Controller
     $customer = Customer::find($request->customer_id);
     $quote->amount = $request->amount;
     $quote->project_id = $request->projectId;
+    $quote->customer_id = $customer->id;
     $quote->token = substr(str_shuffle(str_repeat("0123456789abcdefghijklmnopqrstuvwxyz", 6)), 0, 6);
 
     if ($customer->user_id === Auth::user()->id) {
@@ -77,10 +79,15 @@ class QuoteController extends Controller
           'documents',
           $filenametostore
         );
+
+
         File::create([
-          'user_id' => $customer->id,
+          'customer_id' => $customer->id,
           'url' => Storage::disk('s3')->url('documents/' . $filenametostore),
-          'filename' => $filenamewithextension
+          'filename' => $filenamewithextension,
+          'direction' => $filenametostore,
+          'project_id' => $quote->project->id,
+          'type' => "quote"
         ]);
         //Store $filenametostore in the database
         $quote->url = $filename;
@@ -90,6 +97,7 @@ class QuoteController extends Controller
         if ($request->option1[0] != null) {
           $option = new Option;
           $option->amount = $request->option1[0];
+          $option->customer_id = $customer->id;
           $option->description = $request->option1[1];
           $option->quote_id = $quote->id;
           $option->save();
@@ -97,6 +105,7 @@ class QuoteController extends Controller
         if ($request->option2[0] != null) {
           $option = new Option;
           $option->amount = $request->option2[0];
+          $option->customer_id = $customer->id;
           $option->description = $request->option2[1];
           $option->quote_id = $quote->id;
           $option->save();
@@ -105,6 +114,7 @@ class QuoteController extends Controller
         if ($request->option3[0] != null) {
           $option = new Option;
           $option->amount = $request->option3[0];
+          $option->customer_id = $customer->id;
           $option->description = $request->option3[1];
           $option->quote_id = $quote->id;
           $option->save();
@@ -118,5 +128,31 @@ class QuoteController extends Controller
       return redirect()->route('customer.show', $quote->project->customer_id)->with('success', "Le devis a bien été ajouté");
     }
     return redirect()->back()->with('errors', "Vous n'êtes pas autorisé à créer un devis pour ce client");
+  }
+
+  public function delete(Request $request)
+  {
+
+    $quote = Quote::find($request->quote_id);
+
+    $project = Project::find($quote->project_id);
+
+    if (Auth::user()->id === $project->customer->user->id) {
+
+      $files = File::where('project_id', $project->id)->get();
+
+      foreach ($files as $file) {
+        Storage::delete("documents/$file->direction");
+      }
+      File::where('project_id', $project->id)->delete();
+
+      if ($quote->delete()) {
+
+        Avp::where('project_id', $project->id)->delete();
+        return redirect()->route('project.show', $project->id)->with('success', "Le devis a été supprimé avec succès");
+      }
+    }
+
+    return redirect()->back()->with('error', "Une erreur est survenue, suppression impossible");
   }
 }

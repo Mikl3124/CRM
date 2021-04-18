@@ -11,6 +11,8 @@ class CreateOptionsTable extends Migration
     Schema::create('options', function (Blueprint $table) {
       $table->increments('id');
       $table->timestamps();
+      $table->integer('customer_id')->unsigned();
+      $table->foreign('customer_id')->references('id')->on('customers')->onDelete('cascade');
       $table->string('description');
       $table->integer('amount');
       $table->integer('quote_id');

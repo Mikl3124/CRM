@@ -12,6 +12,9 @@ class CreateQuotesTable extends Migration
       $table->increments('id');
       $table->timestamps();
       $table->integer('project_id')->unsigned();
+      $table->foreign('project_id')->references('id')->on('projects')->onDelete('cascade')->nullable();;
+      $table->integer('customer_id')->unsigned();
+      $table->foreign('customer_id')->references('id')->on('customers')->onDelete('cascade');
       $table->string('filename');
       $table->string('url');
       $table->string('token');

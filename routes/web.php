@@ -32,24 +32,28 @@ Route::get('/', [HomeController::class, 'dashboard'])->name('dashboard');
 Route::get('/customer/create', [CustomerController::class, 'create'])->middleware(['auth'])->name('customer.create');
 Route::post('/customer/store', [CustomerController::class, 'store'])->middleware(['auth'])->name('customer.store');
 Route::get('/customer/show/{id}', [CustomerController::class, 'show'])->middleware(['auth'])->name('customer.show');
+Route::post('/customer/delete', [CustomerController::class, 'delete'])->middleware(['auth'])->name('customer.delete');
 
 //Projects
 Route::get('/project/create/{id}', [ProjectController::class, 'create'])->middleware(['auth'])->name('project.create');
 Route::post('/project/store', [ProjectController::class, 'store'])->middleware(['auth'])->name('project.store');
 Route::get('/project/list/{id}', [ProjectController::class, 'list'])->middleware(['auth'])->name('projects.list');
 Route::get('/project/show/{id}', [ProjectController::class, 'show'])->middleware(['auth'])->name('project.show');
+Route::post('/project/delete', [ProjectController::class, 'delete'])->middleware(['auth'])->name('project.delete');
 
 //Quotes
 Route::get('/quote/create/{id}', [QuoteController::class, 'create'])->middleware(['auth'])->name('quote.create');
 Route::post('/quote/store', [QuoteController::class, 'store'])->middleware(['auth'])->name('quote.store');
 Route::get('/quote/show/{token}', [QuoteController::class, 'show'])->name('quote.show');
 Route::post('/quote/create-acount', [QuoteController::class, 'createAcount'])->middleware(['auth'])->name('create.acount');
+Route::post('/quote/delete', [QuoteController::class, 'delete'])->middleware(['auth'])->name('quote.delete');
 
 //AVP
 Route::get('/avp/create/{id}', [AvpController::class, 'create'])->middleware(['auth'])->name('avp.create');
 Route::post('/avp/store', [AvpController::class, 'store'])->middleware(['auth'])->name('avp.store');
 Route::get('/avp/show/{token}', [AvpController::class, 'show'])->name('avp.show');
 Route::post('/download-avp/', [AvpController::class, 'download'])->name('download-avp');
+Route::post('/avp/delete', [AvpController::class, 'delete'])->middleware(['auth'])->name('avp.delete');
 
 //Payment
 Route::post('/quote-secure-paiement', [PaiementController::class, 'createQuotePayement'])->name('createQuotePayement');
