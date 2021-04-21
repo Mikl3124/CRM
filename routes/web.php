@@ -52,7 +52,7 @@ Route::post('/quote/delete', [QuoteController::class, 'delete'])->middleware(['a
 Route::get('/avp/create/{id}', [AvpController::class, 'create'])->middleware(['auth'])->name('avp.create');
 Route::post('/avp/store', [AvpController::class, 'store'])->middleware(['auth'])->name('avp.store');
 Route::get('/avp/show/{token}', [AvpController::class, 'show'])->name('avp.show');
-Route::post('/download-avp/', [AvpController::class, 'avpdownload'])->name('download-avp');
+Route::post('/download-avp/', [AvpController::class, 'download'])->name('download-avp');
 Route::post('/avp/delete', [AvpController::class, 'delete'])->middleware(['auth'])->name('avp.delete');
 
 //Payment
