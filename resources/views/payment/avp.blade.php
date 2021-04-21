@@ -105,9 +105,9 @@
     stripe.confirmCardPayment("{{ $clientSecret }}", {
       payment_method: {
         card: card,
-        billing_details: { name: cardHolderName.value }
+        billing_details: { name: "{{ $customer->lastname }} {{ $customer->firstname }}" }
 
-      }
+}
         }).then(function(result) {
             if (result.error) {
             // Show error to your customer (e.g., insufficient funds)

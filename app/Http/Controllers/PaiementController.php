@@ -63,7 +63,7 @@ class PaiementController extends Controller
       'total' => $total,
       'acount' => $total * 30,
       'amount' =>  $total,
-      'customer' => $customer->lastname,
+      'customer' => $customer,
       'quote' => $quote,
     ]);
   }
@@ -75,7 +75,7 @@ class PaiementController extends Controller
 
     $customer = Customer::find($avp->project->customer_id);
 
-    $quote= $avp->project->quote->first();
+    $quote = $avp->project->quote->first();
 
     $options = Option::where('quote_id', $quote->id)->get();
 
@@ -149,7 +149,7 @@ class PaiementController extends Controller
   public function successAvp(Request $request)
   {
     $quote = Quote::find($request->quote_id);
-    
+
     $avp = $quote->project->avp;
     $avp->payed = 1;
     $customer = Customer::find($request->customer_id);
@@ -164,6 +164,6 @@ class PaiementController extends Controller
     Mail::to(env("MAIL_ADMIN"))
       ->send(new QuoteAccepted($quote, $customer));
 
-    return view('payment.avp-success', compact('avp'))->with('success', "Votre règlement a bien été enregistré");
+    return view('avp.success', compact('avp'));
   }
 }

@@ -52,14 +52,14 @@ Route::post('/quote/delete', [QuoteController::class, 'delete'])->middleware(['a
 Route::get('/avp/create/{id}', [AvpController::class, 'create'])->middleware(['auth'])->name('avp.create');
 Route::post('/avp/store', [AvpController::class, 'store'])->middleware(['auth'])->name('avp.store');
 Route::get('/avp/show/{token}', [AvpController::class, 'show'])->name('avp.show');
-Route::post('/download-avp/', [AvpController::class, 'download'])->name('download-avp');
+Route::post('/download-avp/', [AvpController::class, 'avpdownload'])->name('download-avp');
 Route::post('/avp/delete', [AvpController::class, 'delete'])->middleware(['auth'])->name('avp.delete');
 
 //Payment
 Route::post('/quote-secure-paiement', [PaiementController::class, 'createQuotePayement'])->name('createQuotePayement');
 Route::post('/avp-secure-paiement', [PaiementController::class, 'createAvpPayement'])->name('createAvpPayement');
-Route::post('/payment-quote-success/', [PaiementController::class, 'successQuote'])->name('success-quote');
-Route::post('/payment-avp-success/', [PaiementController::class, 'successAvp'])->name('success-avp');
+Route::post('/payment-quote-success', [PaiementController::class, 'successQuote'])->name('success-quote');
+Route::post('/payment-avp-success', [PaiementController::class, 'successAvp'])->name('success-avp');
 
 Auth::routes();
 
