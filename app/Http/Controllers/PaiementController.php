@@ -63,7 +63,7 @@ class PaiementController extends Controller
       'total' => $total,
       'acount' => $total * 30,
       'amount' =>  $total,
-      'customer' => $customer->lastname,
+      'customer' => $customer,
       'quote' => $quote,
     ]);
   }

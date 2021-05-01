@@ -44,6 +44,12 @@
               </div>
                 <!-- We'll put the error messages in this element -->
               <div id="card-errors" class="mb-3" role="alert"></div>
+              <div id="wait" class="text-center d-none">
+                <div  class="spinner-border text-success" role="status">
+                  <span class="sr-only">Loading...</span>
+                </div>
+                <h3 class="mt-2">Paiement en cours, veuillez patienter...</h3>
+              </div>
               <div class="text-center mb-3">
                 <a href="{{ url()->previous() }}" class="btn btn-secondary mt-3" >Retour</a>
                   <button id="submit" class="btn btn-success mt-3" data-secret="<?= $intent->client_secret ?>">
@@ -116,6 +122,8 @@
             } else {
                 // The payment has been processed!
                 if (result.paymentIntent.status === 'succeeded') {
+                  document.getElementById('wait').classList.remove('d-none');
+                  document.getElementById('submit-btn').classList.add('d-none');
                     // Show a success message to your customer
                     // There's a risk of the customer closing the window before callback
                     // execution. Set up a webhook or plugin to listen for the
