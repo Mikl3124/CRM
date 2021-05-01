@@ -58,8 +58,8 @@ Route::post('/avp/delete', [AvpController::class, 'delete'])->middleware(['auth'
 //Payment
 Route::post('/quote-secure-paiement', [PaiementController::class, 'createQuotePayement'])->name('createQuotePayement');
 Route::post('/avp-secure-paiement', [PaiementController::class, 'createAvpPayement'])->name('createAvpPayement');
-Route::post('/payment-quote-success/', [PaiementController::class, 'successQuote'])->name('success-quote');
-Route::post('/payment-avp-success/', [PaiementController::class, 'successAvp'])->name('success-avp');
+Route::post('/payment-quote-success', [PaiementController::class, 'successQuote'])->name('success-quote');
+Route::post('/payment-avp-success', [PaiementController::class, 'successAvp'])->name('success-avp');
 
 Auth::routes();
 

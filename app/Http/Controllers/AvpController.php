@@ -99,7 +99,8 @@ class AvpController extends Controller
     $avp = Avp::where('token', $token)->first();
 
     if ($avp->payed === 1) {
-      return Storage::download($avp->avp_url);
+      return view('avp.success', compact('avp'));
+      //return Storage::download($avp->avp_url);
     }
 
     return view('avp.show', compact('avp'));

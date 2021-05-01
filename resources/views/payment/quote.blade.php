@@ -113,7 +113,7 @@
     stripe.confirmCardPayment("{{ $clientSecret }}", {
       payment_method: {
         card: card,
-        billing_details: { name: cardHolderName.value }
+        billing_details: { name: "{{ $customer->lastname }} {{ $customer->firstname }}" }
 
       }
         }).then(function(result) {
