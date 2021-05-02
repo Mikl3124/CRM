@@ -2,12 +2,12 @@
 
 @section('content')
 
-  <div class="container-fluid">
     <div class="col-sm-12 col-md-12">
           @auth
             <a class="btn btn-primary" href="{{ route('dashboard') }}">Retour au Dashboard</a>
             
           @endauth
+      <div class="container">
         <h3 class="text-center my-2">Votre avant projet</h3>
         <div class="text-center my-2">
           <form action="{{ route('createAvpPayement')}}" method="post">
