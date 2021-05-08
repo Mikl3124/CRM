@@ -6,6 +6,7 @@ use App\Models\File;
 use App\Models\User;
 use App\Models\Quote;
 use App\Models\Project;
+use App\Models\Interaction;
 use Laravel\Cashier\Billable;
 use Illuminate\Database\Eloquent\Model;
 
@@ -39,5 +40,10 @@ class Customer extends Model
   public function files()
   {
     return $this->hasMany(File::class);
+  }
+
+  public function interactions()
+  {
+    return $this->hasMany(Interaction::class);
   }
 }

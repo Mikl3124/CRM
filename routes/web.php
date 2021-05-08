@@ -9,6 +9,7 @@ use App\Http\Controllers\QuoteController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\PaiementController;
+use App\Http\Controllers\InteractionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -60,6 +61,11 @@ Route::post('/quote-secure-paiement', [PaiementController::class, 'createQuotePa
 Route::post('/avp-secure-paiement', [PaiementController::class, 'createAvpPayement'])->name('createAvpPayement');
 Route::post('/payment-quote-success', [PaiementController::class, 'successQuote'])->name('success-quote');
 Route::post('/payment-avp-success', [PaiementController::class, 'successAvp'])->name('success-avp');
+
+//Interactions
+Route::post('/interaction/store', [InteractionController::class, 'store'])->name('interaction.store');
+Route::get('/interactions/list/{id}', [InteractionController::class, 'list'])->middleware(['auth'])->name('interactions.list');
+
 
 Auth::routes();
 

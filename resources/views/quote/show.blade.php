@@ -4,6 +4,7 @@
 
   <div class="container-fluid row">
     <div class="col-sm-12 col-md-12">
+          {{-- Si l'admin est connecté --}}
           @auth
             <a class="btn btn-primary" href="{{ route('dashboard') }}">Retour au Dashboard</a>
             <div class="text-center">
@@ -21,13 +22,13 @@
             </div>    
           @endauth
 
+          {{-- Si l'admin n'est pas connecté --}}
           @guest
             <h3 class="text-center mt-2 mb-4">Votre devis</h3>
           @endguest
 
         <div class="text-center my-2">
-
-          @if ($quote->accepted == 0)
+          @if ($quote->state == 'pending')
             @if ($options->isnotempty())
               <button type="button" class="btn btn-success mb-2" data-toggle="modal" data-target="#paymentModalCenter">
                 Accepter le devis et régler l'acompte

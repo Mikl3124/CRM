@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers {
 
+use App\Models\Interaction;
+
   use App\Models\File;
 
   use Illuminate\Support\Facades\Storage;
@@ -40,6 +42,7 @@ namespace App\Http\Controllers {
     public function delete(Request $request)
     {
       $customer = Customer::find($request->customer_id);
+      $interactions = Interaction::where('customer_id', $customer->id)->get();
 
       if (Auth::user()->id === $customer->user->id) {
 
@@ -51,6 +54,7 @@ namespace App\Http\Controllers {
         }
 
         if ($customer->delete()) {
+          $interactions->delete();
           return redirect()->back()->with('success', "Le client a été supprimé avec succès");
         }
       }

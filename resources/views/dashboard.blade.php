@@ -5,7 +5,14 @@
 
   <h4>Bienvenue {{ Auth::user()->name }}</h4>
 
-    <a class="btn btn-primary" href="{{route("customer.create")}}">Ajouter un client</a>
+    <div class="d-flex justify-content-around">
+      <form class="form-inline">
+        <input class="form-control mr-sm-2" type="search" placeholder="Rechercher un client" aria-label="Search">
+        <button class="btn btn-outline-secondary my-2 my-sm-0" type="submit"><i class="fas fa-search"></i></button>
+      </form>
+      <a class="btn btn-primary" href="{{route("customer.create")}}">Ajouter un client</a>
+    </div>
+    
 
   @isset($customers)
       <table class="table table-striped mt-3">
