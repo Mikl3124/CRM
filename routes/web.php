@@ -1,11 +1,14 @@
 <?php
 
 use App\Models\Pay;
+use App\Models\Customer;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AvpController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\QuoteController;
+use App\Http\Controllers\SearchController;
+use Symfony\Component\Console\Input\Input;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\PaiementController;
@@ -66,7 +69,10 @@ Route::post('/payment-avp-success', [PaiementController::class, 'successAvp'])->
 Route::post('/interaction/store', [InteractionController::class, 'store'])->name('interaction.store');
 Route::get('/interactions/list/{id}', [InteractionController::class, 'list'])->middleware(['auth'])->name('interactions.list');
 
+//Search
+Route::post('/customer/search', [SearchController::class, 'searchCustomer'])->name('customer.search');
 
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+

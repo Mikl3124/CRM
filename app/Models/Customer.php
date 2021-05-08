@@ -8,6 +8,8 @@ use App\Models\Quote;
 use App\Models\Project;
 use App\Models\Interaction;
 use Laravel\Cashier\Billable;
+use Spatie\Searchable\Searchable;
+use Spatie\Searchable\SearchResult;
 use Illuminate\Database\Eloquent\Model;
 
 class Customer extends Model

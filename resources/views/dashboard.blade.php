@@ -6,13 +6,13 @@
   <h4>Bienvenue {{ Auth::user()->name }}</h4>
 
     <div class="d-flex justify-content-around">
-      <form class="form-inline">
-        <input class="form-control mr-sm-2" type="search" placeholder="Rechercher un client" aria-label="Search">
+      <form class="form-inline" action="{{ route("customer.search") }}" method="POST" role="search">
+        @csrf
+        <input class="form-control mr-sm-2" type="search" name="searchWord" placeholder="Rechercher un client" aria-label="Search">
         <button class="btn btn-outline-secondary my-2 my-sm-0" type="submit"><i class="fas fa-search"></i></button>
       </form>
       <a class="btn btn-primary" href="{{route("customer.create")}}">Ajouter un client</a>
     </div>
-    
 
   @isset($customers)
       <table class="table table-striped mt-3">
@@ -48,8 +48,5 @@
       </table>
   @endisset
 
-</div>
-
 
 @endsection
-

@@ -25,6 +25,7 @@ class HomeController extends Controller
     return view('dashboard', compact('customers'));
   }
 
+
   /**
    * Show the application dashboard.
    *
