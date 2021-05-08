@@ -41,12 +41,15 @@ use App\Models\Interaction;
 
     public function delete(Request $request)
     {
+
       $customer = Customer::find($request->customer_id);
-      $interactions = Interaction::where('customer_id', $customer->id)->get();
+      $interactions = Interaction::where('customer_id', $customer->id);
 
       if (Auth::user()->id === $customer->user->id) {
 
         $files = $customer->files;
+
+        $interactions->delete();
 
         File::where('customer_id', $customer->id)->delete();
         foreach ($files as $file) {
@@ -54,7 +57,6 @@ use App\Models\Interaction;
         }
 
         if ($customer->delete()) {
-          $interactions->delete();
           return redirect()->back()->with('success', "Le client a été supprimé avec succès");
         }
       }
