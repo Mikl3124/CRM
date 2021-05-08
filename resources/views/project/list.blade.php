@@ -2,14 +2,14 @@
 
 @section('content')
 <div class="container">
-  <a class="btn btn-primary my-4" href="{{ route('dashboard') }}">Retour au Dashboard</a>
+  <a class="text-secondary" href="{{ route('dashboard') }}"><i class="fas fa-home fa-2x"></i></a>
   <a href="{{ route('customer.show', $customer->id) }}">
     <h1 class="text-center text-black">Projets de {{$customer->firstname}} {{$customer->lastname}}</h1>
   </a>
   <hr>
         {{-- Modal pour création de projet --}}
   <button type="button" class="btn btn-success" data-toggle="modal" data-target="#projetModal">
-    <i class="fas fa-pen"></i> Créer un projet 
+    <i class="fas fa-pen"></i> Créer un projet
   </button>
   @if ($projects->count() > 0)
     <table class="table table-striped mt-5">
@@ -30,11 +30,11 @@
           </tr>
         @endforeach
         </tbody>
-    </table>     
+    </table>
   @else
     <h5 class="mt-5 text-secondary">😩 Aucun projet pour le moment...</h5>
   @endif
-   
+
 </div>
 @endsection
 

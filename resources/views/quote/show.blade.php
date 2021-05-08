@@ -6,7 +6,7 @@
     <div class="col-sm-12 col-md-12">
           {{-- Si l'admin est connecté --}}
           @auth
-            <a class="btn btn-primary" href="{{ route('dashboard') }}">Retour au Dashboard</a>
+            <a class="text-secondary" href="{{ route('dashboard') }}"><i class="fas fa-home fa-2x"></i></a>
             <div class="text-center">
               <form action="{{ route('create.acount') }}" method="post">
                 @csrf
@@ -19,7 +19,7 @@
                 <input type="hidden" name="quote_id" value="{{ $quote->id }}">
                 <button type="submit" class="btn btn-danger my-4" onclick="return confirm('Etes vous sûr de vouloir effacer ce devis?')">Supprimer le devis</button>
               </form>
-            </div>    
+            </div>
           @endauth
 
           {{-- Si l'admin n'est pas connecté --}}

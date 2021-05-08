@@ -2,33 +2,31 @@
 
 @section('content')
 <div class="container">
-  <a class="btn btn-primary my-4" href="{{ route('dashboard') }}">Retour au Dashboard</a>
-  <h1>Liste des interactions </h1>
-  <a class="btn btn-primary my-4" href="">Créer une interaction</a>
+  <a class="text-secondary" href="{{ route('dashboard') }}"><i class="fas fa-home fa-2x"></i></a>
+  <h1 class="text-center">Liste des interactions </h1>
+  <button type="button" class="btn btn-success" data-toggle="modal" data-target="#interactionModal">
+    <i class="fas fa-pen"></i> Créer une interaction
+  </button>
    <table class="table table-striped mt-3">
-    <thead>
-      <tr>
-        <th scope="col">Interaction</th>
-        <th scope="col"></th>
-        <th scope="col"></th>
-      </tr>
-    </thead>
     <tbody>
       @foreach ($interactions as $interaction)
-        <tr>
-          <td>{{ $interaction->title }}</td>
-          <td class="text-center">
+          <tr>
+            <td>{{ Carbon\Carbon::parse($interaction->created_at)->isoFormat('ll') }}</td>
+            <td>{{ $interaction->content }}</td>
+            <td class="text-center">
+              <a href="#"><i class="fas fa-eye fa-2x text-secondary"></i></a>
+            </td>
+            <td class="text-center">
               <!-- Modal Lunch Delete -->
-            <form action="" method="post">
-              @csrf
-              <button type="submit" class="btn btn-danger" onclick="return confirm('Etes vous sûr de vouloir effacer ce projet?')">Supprimer</button>
-            </form>
-          </td>
-        </tr>
+              <form action="" method="post">
+                @csrf
+                <button type="submit" onclick="return confirm('Etes vous sûr de vouloir effacer ce projet?')"><i class="fas fa-trash fa-2x text-danger"></i></button>
+              </form>
+            </td>
+          </tr>
       @endforeach
       </tbody>
   </table>
 </div>
-
-</div>
+@include('layouts.modals.interactions')
 @endsection

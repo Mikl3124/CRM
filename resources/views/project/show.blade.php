@@ -2,8 +2,8 @@
 
 @section('content')
 <div class="container">
-  <a class="btn btn-primary my-4" href="{{ route('dashboard') }}">Retour au Dashboard</a>
-  <h1>Le projet</h1>
+  <a class="text-secondary" href="{{ route('dashboard') }}"><i class="fas fa-home fa-2x"></i></a>
+  <h1 class="text-center">{{ $project->title }}</h1>
 
   @isset($quote)
       @if ($quote->state === 'payed')

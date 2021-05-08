@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('content')
   <div class="container">
-    <a class="btn btn-primary my-4" href="{{ route('dashboard') }}">Retour au Dashboard</a>
+    <a class="text-secondary" href="{{ route('dashboard') }}"><i class="fas fa-home fa-2x"></i></a>
     <div class="card" >
       <div class="card-header">
         <h4>Saisie du devis pour le projet "{{ $project->title}}"</h4>

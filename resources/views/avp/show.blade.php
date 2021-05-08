@@ -4,8 +4,7 @@
 
     <div class="col-sm-12 col-md-12">
           @auth
-            <a class="btn btn-primary" href="{{ route('dashboard') }}">Retour au Dashboard</a>
-            
+            <a class="text-secondary" href="{{ route('dashboard') }}"><i class="fas fa-home fa-2x"></i></a>
           @endauth
       <div class="container">
         <h3 class="text-center my-2">Votre avant projet</h3>

@@ -15,7 +15,9 @@ class SearchController extends Controller
       return redirect()->route('dashboard')->with('error', "Essaye de saisir au moins un mot ...");
     }
 
-    $customers = Customer::where('firstname', 'LIKE', "%{$searchWord}%")->orWhere('lastname', 'LIKE', "%{$searchWord}%")->get();
+    $customers = Customer::where('firstname', 'LIKE', "%{$searchWord}%")
+                          ->orWhere('lastname', 'LIKE', "%{$searchWord}%")
+                          ->orWhere('email', 'LIKE', "%{$searchWord}%")->get();
 
     if($customers->count() > 0){
       return view('dashboard', compact('customers'));
