@@ -27,10 +27,23 @@ class PaiementController extends Controller
     // On récupère la somme des options
 
     $sum_options = 0;
+    $all_options = Option::where('quote_id', $quote->id)->get();
+
+    if (isset($all_options)) {
+      foreach ($all_options as $option) {
+        $option->select = 0;
+        $option->save();
+      }
+    }
+
     if (isset($request->options)) {
       foreach ($request->options as $option) {
-        if (isset($option))
-          $sum_options += $option;
+        if (isset($option)){
+          $option = Option::find($option);
+          $option->select = 1;
+          $option->save();
+          $sum_options += $option->amount;
+        }
       }
     }
 
@@ -71,31 +84,33 @@ class PaiementController extends Controller
   public function createAvpPayement(Request $request)
   {
 
+    dd($request);
     $avp = Avp::find($request->avp_id);
 
     $customer = Customer::find($avp->project->customer_id);
 
     $quote = $avp->project->quote->first();
 
-    $options = Option::where('quote_id', $quote->id)->get();
+   
+    $options = Option::where('quote_id', $quote->id)->where('select', 1)->get();
 
     $sum_options = 0;
-    foreach ($options as $key => $value) {
+    foreach ($options as $option) {
 
-      if (isset($value->amount))
-        $sum_options += $value->amount;
+      if (isset($option->amount))
+        $sum_options += $option->amount;
     }
 
     //On récupère l'acompte
     $payment = Payment::where('quote_id', $quote->id)->first();
 
     //On enregistre le montant à payer + options
-    $project_amount = $quote->amount + $sum_options;
-
+    $project_amount = ($quote->amount + $sum_options) * 100;
+  
     if ($payment === null) {
-      $total = ($project_amount * 100);
+      $total = ($project_amount);
     } else {
-      $total = ($project_amount * 100) - ($payment->amount * 100);
+      $total = ($project_amount) - ($payment->amount);
     }
 
     Stripe::setApiKey(env("STRIPE_SECRET"));

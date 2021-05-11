@@ -7,9 +7,9 @@
 
   @isset($quote)
       @if ($quote->state === 'payed')
-        <a class="btn btn-secondary my-4" href="{{ route('quote.show', $quote->token) }}">€ Payé ({{$quote->amount}}€) € </a>
+        <a class="btn btn-secondary my-4" href="{{ route('quote.show', $quote->token) }}">😃 Devis Payé</a>
       @else
-        <a class="btn btn-secondary my-4" href="{{ route('quote.show', $quote->token) }}">Voir le devis ({{$quote->amount}}€)</a>
+        <a class="btn btn-secondary my-4" href="{{ route('quote.show', $quote->token) }}">Voir le devis</a>
       @endif
   @else
     <a class="btn btn-success my-4" href="{{ route('quote.create', $project->id) }}">Créer un devis</a>
