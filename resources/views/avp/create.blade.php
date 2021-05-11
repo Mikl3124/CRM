@@ -15,12 +15,6 @@
             <div class="form-group">
               <label for="to_pay">Montant à payer:</label>
               <input type="number" step="0.01" name="to_pay" class="form-control" id="to_pay" value="{{ $to_pay }}" required>
-              <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                <label class="form-check-label" for="flexCheckDefault">
-                  Forcer le paiement
-                </label>
-              </div>
             </div>
 
             <div class="form-group">

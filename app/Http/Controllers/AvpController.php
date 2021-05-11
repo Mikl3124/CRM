@@ -49,13 +49,14 @@ class AvpController extends Controller
 
   public function store(Request $request)
   {
-
     $avp = new Avp;
     $avp->url = $request->url;
     $avp->project_id = $request->project_id;
     $avp->token = substr(str_shuffle(str_repeat("0123456789abcdefghijklmnopqrstuvwxyz", 6)), 0, 6);
     $customer = Customer::find($avp->project->customer_id);
     $avp->customer_id = $customer->id;
+    $avp->amount = $request->to_pay * 100;
+
     if ($files = $request->file('quoteFile')) {
 
       $filenamewithextension = $request->file('quoteFile')->getClientOriginalName();

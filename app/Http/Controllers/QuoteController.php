@@ -41,7 +41,7 @@ class QuoteController extends Controller
       $customer = Customer::find($quote->project->customer_id);
       $payment = new Payment;
       $payment->quote_id = $request->quote_id;
-      $payment->amount = $request->quote_amount;
+      $payment->amount = $request->quote_amount * 100;
       $payment->customer_id = $customer->id;
       $payment->save();
     }
