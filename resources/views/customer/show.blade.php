@@ -6,7 +6,10 @@
 <div class="container">
     <a class="text-secondary" href="{{ route('dashboard') }}"><i class="fas fa-home fa-2x"></i></a>
     <div class="text-center">
+      <button data-toggle="modal" data-target="#editUserModal">
         <h1>{{ $customer->firstname }} {{ $customer->lastname }}</h1>
+      </button>
+
     </div>
 
     <hr>
@@ -63,7 +66,7 @@
   </div>
 </div>
 
-
+@include('layouts.modals.edit-user')
 @include('layouts.modals.interactions')
 
 

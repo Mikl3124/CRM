@@ -96,5 +96,39 @@ use App\Models\Interaction;
         return redirect()->route('dashboard')->with('success', "Le client a bien été ajouté");
       }
     }
+
+    public function edit(Request $request)
+    {
+      $customer = Customer::find($request->customerId);
+
+      $value = $request->all();
+
+      $rules = [
+        'email' => 'required',
+      ];
+
+      $validator = Validator::make($value, $rules, [
+        'email.required' => "L'adresse email est obligatoire",
+        'email.unique' => "Cette adresse email est déjà utilisée",
+      ]);
+
+      if ($validator->fails()) {
+
+        return Redirect::back()
+          ->withErrors($validator)
+          ->withInput();
+      } else {
+        $customer->email = $request->email;
+        $customer->firstname = $request->firstname;
+        $customer->lastname = $request->lastname;
+        $customer->phone = $request->phone;
+        $customer->address = $request->address;
+        $customer->zip = $request->zip;
+        $customer->town = $request->town;
+        $customer->save();
+
+        return redirect()->route('dashboard')->with('success', "Le client a été mofifié avec succès");
+      }
+    }
   }
 }
