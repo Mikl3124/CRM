@@ -56,7 +56,7 @@
             <input type="text" class="form-control" name="town" placeholder="Ville">
           </div>
         </div>
-        <button type="submit" class="btn btn-primary">Créer</button>
+        <button type="submit" class="btn btn-primary">Créer </button>
       </form>
     </div>
   </div>
