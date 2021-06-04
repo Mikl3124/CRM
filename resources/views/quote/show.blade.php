@@ -73,7 +73,7 @@
               <div class="modal-body">
                 @foreach ($options as $option)
                   <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="{{ $option->amount }}" id="flexCheckDefault" multiple="multiple" name="options[]"checked>
+                    <input class="form-check-input" type="checkbox" value="{{ $option->id }}" id="flexCheckDefault" multiple="multiple" name="options[]"checked>
                     <label class="form-check-label" for="flexCheckDefault">
                     {{ $option->description }} (+{{ $option->amount }}€)
                     </label>

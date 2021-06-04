@@ -50,7 +50,8 @@
                 </div>
                 <h3 class="mt-2">Paiement en cours, veuillez patienter...</h3>
               </div>
-              <div class="text-center mb-3">
+
+              <div id="submit-btn" class="text-center mb-3">
                 <a href="{{ url()->previous() }}" class="btn btn-secondary mt-3" >Retour</a>
                   <button id="submit" class="btn btn-success mt-3" data-secret="<?= $intent->client_secret ?>">
                       Payer

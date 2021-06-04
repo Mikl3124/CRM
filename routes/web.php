@@ -35,6 +35,7 @@ Route::get('/', [HomeController::class, 'dashboard'])->name('dashboard');
 //Customers
 Route::get('/customer/create', [CustomerController::class, 'create'])->middleware(['auth'])->name('customer.create');
 Route::post('/customer/store', [CustomerController::class, 'store'])->middleware(['auth'])->name('customer.store');
+Route::post('/customer/edit', [CustomerController::class, 'edit'])->middleware(['auth'])->name('customer.edit');
 Route::get('/customer/show/{id}', [CustomerController::class, 'show'])->middleware(['auth'])->name('customer.show');
 Route::post('/customer/delete', [CustomerController::class, 'delete'])->middleware(['auth'])->name('customer.delete');
 
