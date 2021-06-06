@@ -10,6 +10,7 @@ use App\Models\Payment;
 use App\Models\Project;
 use App\Models\Customer;
 use App\Mail\CreateQuote;
+use App\Mail\VisitedPage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
@@ -28,6 +29,14 @@ class QuoteController extends Controller
   public function show($token)
   {
     $quote = Quote::where('token', $token)->first();
+    $page = "quote.show";
+    $customer = $quote->project->customer;
+
+    if (!Auth::check()){
+      Mail::to("contact@nyleo.fr")
+      ->send(new VisitedPage($page, $customer));
+    }
+
 
     $options = Option::where('quote_id', $quote->id)->get();
     return view('quote.show', compact('quote', 'options'));

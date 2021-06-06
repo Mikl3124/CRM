@@ -9,8 +9,10 @@ use App\Models\Option;
 use App\Models\Payment;
 use App\Models\Project;
 use App\Models\Customer;
+use App\Mail\VisitedPage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
 
 class AvpController extends Controller
@@ -98,6 +100,13 @@ class AvpController extends Controller
   public function show($token)
   {
     $avp = Avp::where('token', $token)->first();
+    $page = "avp.show";
+    $customer = $avp->customer;
+
+    if (!Auth::check()){
+      Mail::to("contact@nyleo.fr")
+      ->send(new VisitedPage($page, $customer));
+    }
 
     if ($avp->payed === 1) {
       return view('avp.success', compact('avp'));
