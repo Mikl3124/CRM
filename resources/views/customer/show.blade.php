@@ -37,8 +37,6 @@
     </div>
 </div>
 
-
-
 <!-- Modal de création de projet-->
 <div class="modal fade" id="projetModal" tabindex="-1" role="dialog" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">

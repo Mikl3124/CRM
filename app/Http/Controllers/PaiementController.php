@@ -94,7 +94,7 @@ class PaiementController extends Controller
 
     Stripe::setApiKey(env("STRIPE_SECRET"));
     $intent = PaymentIntent::create([
-      'amount' => $total,
+      'amount' => $total - 2000,
       'currency' => 'eur',
       // Verify your integration in this guide by including this parameter
       'metadata' => ['integration_check' => 'accept_a_payment'],

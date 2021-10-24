@@ -137,7 +137,7 @@ class AvpController extends Controller
   public function download(Request $request)
   {
     $avp = Avp::where('id', $request->avp_id)->first();
-
+    dd($avp->avp_url);
     return Storage::download($avp->avp_url);
   }
 }
