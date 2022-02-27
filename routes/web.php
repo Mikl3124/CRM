@@ -74,6 +74,3 @@ Route::get('/interactions/list/{id}', [InteractionController::class, 'list'])->m
 Route::post('/customer/search', [SearchController::class, 'searchCustomer'])->name('customer.search');
 
 Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');
-
