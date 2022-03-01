@@ -50,11 +50,6 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Throwable $exception)
     {
-        // Otherwise display internal error message
-        if (app()->environment() === 'production') {
-            return view('errors.500');
-        } else {
-            return parent::render($request, $exception);
-        }
+        return parent::render($request, $exception);
     }
 }
